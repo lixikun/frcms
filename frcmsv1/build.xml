@@ -1,0 +1,23 @@
+<project default="genfiles" basedir=".">
+     <property name="generated.source.dir" value="${basedir}" />
+	 <!-- 定义myBatis 的所需的jar -->
+	 <path id="myBatis.classpath">
+			<fileset dir="${basedir}/WebRoot/WEB-INF/lib">
+				<include name="**/*.jar" />
+			</fileset>	
+	 	<pathelement Location="${basedir}/WebRoot/WEB-INF/classes"/>
+	 </path>
+     <target name="genfiles" description="Generate the files">
+       <taskdef name="mbgenerator"
+                classname="org.mybatis.generator.ant.GeneratorAntTask" >
+     	  <classpath >
+			<path refid="myBatis.classpath"></path>     	  	
+     	  </classpath>
+     	</taskdef>
+       <mbgenerator overwrite="true" configfile="generateCfg.xml" verbose="false" >
+         <propertyset>
+           <propertyref name="generated.source.dir"/>
+         </propertyset>
+       </mbgenerator>
+     </target>
+</project>

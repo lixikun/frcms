@@ -1,0 +1,2 @@
+使用spring+hibernate 
+前台模板使用velocty

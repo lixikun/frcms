@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="WebRoot/WEB-INF/lib/mysql-connector-java-5.1.16-bin.jar" />  
+  <context id="MysqlTables" targetRuntime="MyBatis3">
+    
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />  
+    <plugin type="com.flyrui.dao.common.mybatis3.PaginationMySqlPlugin" /> 
+    
+    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+        <property name="searchString" value="Example$" />  
+        <property name="replaceString" value="Criteria" />  
+     </plugin>
+    <commentGenerator>  
+        <property name="suppressAllComments" value="true" />  
+	</commentGenerator> 
+  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://127.0.0.1:3306/fengruiDB"
+        userId="fengrui"
+        password="fengrui">
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.flyrui.dao.pojo.sys" targetProject="src">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="config.mybatis.sqlMap.mysql"  targetProject="src">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <!--  
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.flyrui.dao.mapper"  targetProject="src">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+    -->
+    
+    <!--  <table schema="fengruiDB" tableName="ALLTYPES" domainObjectName="Customer" > 
+    
+    -->
+    <!-- 
+    <table schema="fengruiDB" tableName="tb_menu" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+	
+	<table schema="fengruiDB" tableName="tb_menu" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+	<table schema="fengruiDB" tableName="tb_role" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+    <table schema="fengruiDB" tableName="tb_role_menu" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+    <table schema="fengruiDB" tableName="tb_user" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+    <table schema="fengruiDB" tableName="tb_user_role" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+    <table schema="fengruiDB" tableName="tb_organation" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+     -->
+     <table schema="fengruiDB" tableName="tb_sys_log" enableCountByExample="false" enableUpdateByExample="false"
+	enableDeleteByExample="false" enableSelectByExample="false"
+	selectByExampleQueryId="false" >
+      <property name="useActualColumnNames" value="true"/>  
+    </table>
+  </context>
+</generatorConfiguration>
+

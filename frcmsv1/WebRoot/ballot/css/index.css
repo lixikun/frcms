@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+li {list-style:none;}
+.fli {float:left;min-width:100px;}
+.h40{height:40px}
+.p10{padding-top:10px}
+
+.resultli div{ float:left;}
+.resultli .result_img_bg {
+	width:500px;float:left;padding-left:10px;
+}
+.resultli .result_text {
+	padding-left:10px
+}
+.resultli .count {
+	font-color:red
+}
+.resultli .percentage {
+	font-color:red
+}

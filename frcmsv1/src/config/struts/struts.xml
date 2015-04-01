@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+    <!-- 该属性指定需要Struts2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts2处理。
+      	  如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（,）隔开。 -->
+    <constant name="struts.action.extension" value="do" />
+    <!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+    <constant name="struts.serve.static.browserCache" value="false" />
+    <!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+    <constant name="struts.configuration.xml.reload" value="false" />
+    <!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+    <constant name="struts.devMode" value="false" />
+    <!-- 默认的视图主题 -->
+    <!-- <constant name="struts.ui.theme" value="simple" /> -->
+    <!-- <constant name="struts.objectFactory" value="spring" />  -->
+    <!-- 开启使用action!method方式访问，如!和方法名字 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    
+    <include file="struts-default.xml"/> 
+    <include file="struts-plugin.xml"/>
+    
+    <!-- 定义全局错误处理 -->
+    <package name="frcms_default" extends="json-default">    
+    	<!-- 定义异常处理机制
+   		<global-results>
+    		<result name="frException" type="json">
+            	 <param name="root">exception</param>
+            	 <param name="includeProperties">error.errorCode,error.errorMessage,error.errorResolve</param>
+            </result>
+    	</global-results>
+    	<global-exception-mappings>
+    		<exception-mapping result="frException" exception="com.flyrui.exception.FRException"></exception-mapping>
+    	</global-exception-mappings>
+    	 -->
+    	<interceptors>
+            <interceptor name="exceptionInterceptor" class="com.flyrui.framework.struts.interceptor.ExceptionInterceptor"/>
+            <interceptor name="LoginAuthInterceptor" class="com.flyrui.framework.struts.interceptor.LoginAuthInterceptor"/>
+            <interceptor-stack name="systemInterceptorStack">  
+                <interceptor-ref name="exceptionInterceptor"/>
+                <interceptor-ref name="LoginAuthInterceptor"/>    
+                <interceptor-ref name="defaultStack"/>  
+            </interceptor-stack>
+        </interceptors>  
+          
+        <default-interceptor-ref name="systemInterceptorStack"/>  
+          
+        <global-results>  
+            <result name="error">/admin/common/error.jsp</result>  
+            
+            <!-- 定义全局导出excel处理 -->
+            <result name="excel" type="stream"><!-- type="stream"表示要以二进制的文件去进行下载 -->
+                 <param name="contentType">application/vnd.ms-excel</param><!-- 指明文件的类型 -->
+                 <!--attachment属性是要选择打开时单独打开，而不是在浏览器中打开，默认是inline. 指明下载时文件的名字 -->
+                 <param name="contentDisposition">attachment;filename="${excelName}.xls"</param>
+                 <param name="inputName">inputStream</param><!-- 指明文件下载的方法的名字 -->                 
+                 <param name="bufferSize">4096</param>
+            </result>
+        </global-results>  
+    </package>
+    
+    <!-- 添加模块 -->
+    <include file="config/struts/struts-sys.xml"/>
+    
+    <include file="config/struts/struts-salary.xml"/>
+    
+    <include file="config/struts/struts-ballot.xml"/>    
+    
+    <include file="config/struts/struts-channel.xml"/>  
+	
+</struts>
+
+
