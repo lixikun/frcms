@@ -7,7 +7,7 @@ var noticeMng = {
         if (this.check()) {
             var param = noticeMng.getParams();
             var me = this;
-            CommonUtils.invokeAsyncAction('/Sys/Notice!insert.do', param, function (reply) {
+            CommonUtils.invokeAsyncAction(base+'/Sys/Notice!insert.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -33,7 +33,7 @@ var noticeMng = {
             param["notice.notice_id"]=obj.notice_id;
             param["notice.content_id"]=obj.content_id;
             var me = this;
-            CommonUtils.invokeAsyncAction('/Sys/Notice!update.do', param, function (reply) {
+            CommonUtils.invokeAsyncAction(base+'/Sys/Notice!update.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -52,7 +52,7 @@ var noticeMng = {
         var me = this;
         var param = {};
         param["notice.notice_id"] = obj;
-        CommonUtils.invokeAsyncAction('/Sys/Notice!delete.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Notice!delete.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){
@@ -130,7 +130,7 @@ var noticeMng = {
     queryDetailById: function (obj) {
         var param = {}, me = this;
         param["notice.notice_id"] = obj;        
-        CommonUtils.invokeAsyncAction('/Sys/Notice!queryContentDetail.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Notice!queryContentDetail.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){
@@ -153,7 +153,7 @@ var noticeMng = {
 
 $(function () {
     $('#noticeList').datagrid({
-        url: '/Sys/Notice!queryPageList.do',
+        url: base+'/Sys/Notice!queryPageList.do',
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},

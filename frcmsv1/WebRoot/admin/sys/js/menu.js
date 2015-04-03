@@ -112,7 +112,7 @@ var Menu={
 			param.insertList = rows;
 			param.deleteList = deleteRows;
 			param.updateList = updateRows;
-			CommonUtils.invokeAsyncJsonAction('/Sys/Sys!optMenuList.do', param, function (reply) {
+			CommonUtils.invokeAsyncJsonAction(base+'/Sys/Sys!optMenuList.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -166,7 +166,7 @@ $(function(){
 	});
 	
 	$('#menuList').datagrid({
-		url:"/Sys/Login!getSubMenuPagerListByUpId.do",
+		url:base+"/Sys/Login!getSubMenuPagerListByUpId.do",
 		queryParams:{
 			"menuId":"-1"
 		},

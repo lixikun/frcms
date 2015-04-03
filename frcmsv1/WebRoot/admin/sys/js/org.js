@@ -27,7 +27,7 @@ var Org={
           var node = $('#organizationTree').tree('getSelected');          
           param["tbOrganation.up_org_id"] = node.id;
           var me = this;
-          CommonUtils.invokeAsyncAction('/Sys/Organation!insert.do', param, function (reply) {
+          CommonUtils.invokeAsyncAction(base+'/Sys/Organation!insert.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -54,7 +54,7 @@ var Org={
           param["tbOrganation.state"] = $('#id_state').val();          
           param["tbOrganation.org_id"] = obj;           
           var me = this;
-          CommonUtils.invokeAsyncAction('/Sys/Organation!update.do', param, function (reply) {
+          CommonUtils.invokeAsyncAction(base+'/Sys/Organation!update.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -73,7 +73,7 @@ var Org={
       var me = this;
       var param = {};
       param["tbOrganation.org_id"] = obj;
-      CommonUtils.invokeAsyncAction('/Sys/Organation!delete.do', param, function (reply) {
+      CommonUtils.invokeAsyncAction(base+'/Sys/Organation!delete.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
               if(code=='0'){
@@ -91,7 +91,7 @@ var Org={
   queryOrgInfo: function (obj) {
       var param = {}, me = this;
       param["tbOrganation.org_id"] = obj;        
-      CommonUtils.invokeAsyncAction('/Sys/Organation!queryList.do', param, function (reply) {
+      CommonUtils.invokeAsyncAction(base+'/Sys/Organation!queryList.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
               if(code=='0'){
@@ -139,7 +139,7 @@ var Org={
 
 $(function(){	
 	$('#organizationTree').tree({
-		url:"/Sys/Organation!queryTreeList.do?tbOrganation.up_org_id=-1",		
+		url:base+"/Sys/Organation!queryTreeList.do?tbOrganation.up_org_id=-1",		
 		loadFilter:function(data){
 			return CommonUtils.loadFilter(data);
 		},
@@ -147,7 +147,7 @@ $(function(){
 			var node = $('#organizationTree').tree('getSelected');			
 			var param = {"tbOrganation.up_org_id":node.id};			
 			if($('#organizationTree').tree('isLeaf',node.target)){
-				CommonUtils.invokeAsyncAction('/Sys/Organation!queryTreeList.do', param, function (reply) {
+				CommonUtils.invokeAsyncAction(base+'/Sys/Organation!queryTreeList.do', param, function (reply) {
 					if((reply || '') !=''){
 						var code = reply._code;
 		                if(code=='0'){	 
@@ -172,7 +172,7 @@ $(function(){
 	});
 	
 	$('#orgList').datagrid({
-		url:"/Sys/Organation!queryPageList.do",
+		url:base+"/Sys/Organation!queryPageList.do",
 		queryParams:{
 			"tbOrganation.up_org_id":"-1"
 		},

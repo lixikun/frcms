@@ -39,7 +39,7 @@ var Content ={
 	            { display: '标题', name: 'title', align: 'left', width: 400, minWidth: 60 },
 	            { display: '访问数', name: 'views_day', minWidth: 40 }	            
             ],
-            url:'/Channel/Channel!qryContentPageList.do',
+            url:base+'/Channel/Channel!qryContentPageList.do',
             pageSizeOptions: [5, 10, 15, 20],
             pageSize:15 ,
             root:'rows',
@@ -49,17 +49,17 @@ var Content ={
             record:'total',
             rownumbers:true,
             toolbar: { items: [
-	            { text: '增加', icon: 'add' ,click:self.showAddContent,img: '/public/ligerUI/skins/icons/add.gif'},
+	            { text: '增加', icon: 'add' ,click:self.showAddContent,img: base+'/public/ligerUI/skins/icons/add.gif'},
 	            { line: true },
-	            { text: '修改', icon: 'modify' ,click:self.showModifyContent,img: '/public/ligerUI/skins/icons/modify.gif'},
+	            { text: '修改', icon: 'modify' ,click:self.showModifyContent,img: base+'/public/ligerUI/skins/icons/modify.gif'},
 	            { line: true },
-	            { text: '删除',click:self.deleteContent,img: '/public/ligerUI/skins/icons/delete.gif' }
+	            { text: '删除',click:self.deleteContent,img: base+'/public/ligerUI/skins/icons/delete.gif' }
 	          ]
             } 
         });
 	},
 	getSubChannel:function(thisTree,node,parent_id){
-		CommonUtils.invokeAsyncAction('/Channel/Channel!qryChannelList.do',{"channel.parent_id":parent_id},function(reply){
+		CommonUtils.invokeAsyncAction(base+'/Channel/Channel!qryChannelList.do',{"channel.parent_id":parent_id},function(reply){
 			reply = reply.ret;
 			thisTree.append(node.target,reply);
 		});
@@ -85,7 +85,7 @@ var Content ={
 		}
 	    var m = $.ligerDialog.open({
 			 title:'内容添加', 
-			 url: '/Channel/editContent.do', 
+			 url: base+'/Channel/editContent.do', 
 			 height: 600,
 			 width:900,
 			 isResize: true,
@@ -111,7 +111,7 @@ var Content ={
 		}		
 	    var m = $.ligerDialog.open({
 			 title:'内容修改', 
-			 url: '/Channel/editContent.do?content.content_id='+sRow.content_id, 
+			 url: base+'/Channel/editContent.do?content.content_id='+sRow.content_id, 
 			 height: 600,
 			 width:900,
 			 isResize: true,
@@ -132,7 +132,7 @@ var Content ={
 		}
 		$.ligerDialog.confirm("确定要删除 "+sRow.title+" 吗?",function(flag){
 			if(flag){
-				CommonUtils.invokeAsyncAction('/Channel/Channel!deleteContent.do',{"content.content_id":sRow.content_id},function(reply){
+				CommonUtils.invokeAsyncAction(base+'/Channel/Channel!deleteContent.do',{"content.content_id":sRow.content_id},function(reply){
 					var result = reply.ret;
 					if(result && result.code =='0'){
 						$.ligerDialog.success('删除成功!');

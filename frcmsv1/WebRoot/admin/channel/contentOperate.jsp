@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <jsp:include page="/admin/main/head_new.jsp"></jsp:include>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/lang/zh-cn/zh-cn.js"></script>
-<link href="/public/common/ress/css/admin.css" rel="stylesheet" type="text/css"/>
-<link href="/public/common/ress/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="/public/ligerUI/skins/Gray/css/grid.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="/admin/channel/js/contentOperate.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/lang/zh-cn/zh-cn.js"></script>
+<link href="<%=baseUri %>/public/common/ress/css/admin.css" rel="stylesheet" type="text/css"/>
+<link href="<%=baseUri %>/public/common/ress/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="<%=baseUri %>/public/ligerUI/skins/Gray/css/grid.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<%=baseUri %>/admin/channel/js/contentOperate.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -64,7 +67,7 @@ function previewImg(n) {
 			发布时间:
 		</td>
 		<td colspan="1" width="40%" class="pn-fcontent">
-			<input type="text" name="content.release_date" id="content.release_date" ltype="text" validate="{required:true}" value="<s:date name="content.release_date" format="yyyy-MM-dd HH:mm:ss"/>" />
+			<input type="text" name="content.release_date" id="content.release_date" validate="{required:true}" value="<s:date name="content.release_date" format="yyyy-MM-dd HH:mm:ss" />" />
 		</td>			
 	</tr>	
 	<tr>

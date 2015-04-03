@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <jsp:include page="/admin/main/head.jsp"></jsp:include>
 <div region="center" class="easyui-layout">
 	<div region="west" split="true" title="组织目录" style="width:200px;">

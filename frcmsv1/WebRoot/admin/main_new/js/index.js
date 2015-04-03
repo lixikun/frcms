@@ -56,8 +56,8 @@ $(function (){
     //pages_init();
     
     $("#logout").click(function(){//退出
-		CommonUtils.invokeAsyncAction('/Sys/Login!loginOut.do',{},function(reply){
-           window.location.href='/admin/login';
+		CommonUtils.invokeAsyncAction(base+'/Sys/Login!loginOut.do',{},function(reply){
+           window.location.href=base+'/admin/login';
         })
 	});
 	$("#mdfPwd").click(function(){//修改密码
@@ -108,10 +108,10 @@ function addFrameSkinLink(tabid)
     attachLinkToFrame(tabid, prevHref + skin_links[skin]);
 }
 var skin_links = {
-    "aqua": "/public/ligerUI/skins/Aqua/css/ligerui-all.css",
-    "gray": "/public/ligerUI/skins/Gray/css/all.css",
-    "silvery": "/public/ligerUI/skins/Silvery/css/style.css",
-    "gray2014": "/public/ligerUI/skins/gray2014/css/all.css"
+    "aqua": base+"/public/ligerUI/skins/Aqua/css/ligerui-all.css",
+    "gray": base+"/public/ligerUI/skins/Gray/css/all.css",
+    "silvery": base+"/public/ligerUI/skins/Silvery/css/style.css",
+    "gray2014": base+"/public/ligerUI/skins/gray2014/css/all.css"
 };
 function pages_init()
 {
@@ -205,7 +205,9 @@ var Menu={
 		            // console.log(this.id);
 		            //var manager = $("#"+this.id).ligerGetTreeManager();
 		            //console.log(manager);
-					if (!node.data.menu_url){
+				    //alert(node.data.menu_url != (base+"/"));
+				    //alert(node.data.menu_url);
+					if (!node.data.menu_url || node.data.menu_url == (base+"/")){
 		            	//如果节点没有url，查询数据库看是否有子节点。
 						if(!$(node.target).attr("isLoad")){
 			            	self.getSubModule(this,node,node.data.menu_id);
@@ -226,9 +228,13 @@ var Menu={
 		},
 		getSubModule:function(thisTree,node,fun_id){
 			
-			CommonUtils.invokeAsyncAction('/Sys/Login!getSubTwoLevelMenuList.do',{menuId:fun_id},function(reply){
+			CommonUtils.invokeAsyncAction(base+'/Sys/Login!getSubTwoLevelMenuList.do',{menuId:fun_id},function(reply){
 				var arr=new Array();
 				reply = reply.ret;
+				for(var i in reply ){
+					var r = reply[i];
+					r.menu_url = base+"/"+r.menu_url
+				}
 				thisTree.append(node.target,reply);
 			});
 		},		
@@ -264,7 +270,7 @@ var Menu={
 		     var param ={};
 		     param["oldPwd"] = oldPwd;
 		     param["newPwd"] = newPwd;
-			CommonUtils.invokeAsyncAction('/Sys/Login!modifyPwd.do',param,function(reply){
+			CommonUtils.invokeAsyncAction(base+'/Sys/Login!modifyPwd.do',param,function(reply){
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){	 

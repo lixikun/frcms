@@ -63,7 +63,7 @@ select {
 }
 
 .indexnav{
-	background: url("/web/images/headbg.png") repeat scroll 0 0 transparent;
+	background: url("./images/headbg.png") repeat scroll 0 0 transparent;
     height: 43px;
     list-style: outside none none;
     text-decoration: none;
@@ -113,10 +113,10 @@ select {
 	text-decoration: none;
 }
 a.navborderRight{
-	background: url("/web/css/images/navLine.jpg") no-repeat scroll right center ;
+	background: url("./images/navLine.jpg") no-repeat scroll right center ;
 }
 .indexmoveNav {
-    background: url("/web/css/images/dian.jpg") no-repeat scroll 50% 5px #3071a9;
+    background: url("./images/dian.jpg") no-repeat scroll 50% 5px #3071a9;
 }
 
 .currNav a:link{
@@ -141,7 +141,7 @@ a.navborderRight{
 }
 
 .listb_name h2 {
-    background: url("/web/css/images/ico.gif") no-repeat scroll 0 -569px;
+    background: url("./images/ico.gif") no-repeat scroll 0 -569px;
     color: #006bc6;
     font-size: 20px;
     font-weight: bold;
@@ -165,7 +165,7 @@ ul, ol {
 }
 
 .listb ul li {
-    background: url("/web/images/arrow.jpg") no-repeat scroll 0 40%;
+    background: url("../images/arrow.jpg") no-repeat scroll 0 40%;
     border-bottom: 1px solid #eee;   
     margin-left: 7px;
     line-height:22px;
@@ -211,7 +211,7 @@ fieldset, img {
 }
 
 .position {
-   	background: url("/web/css/images/index_bg.gif")  repeat-x scroll 0 0 #f8f8f8 ;
+   	background: url("./images/index_bg.gif")  repeat-x scroll 0 0 #f8f8f8 ;
     color: #006bc6;
     height: 30px;
     line-height: 30px;
@@ -257,7 +257,7 @@ fieldset, img {
     height: 79px;
     overflow: hidden;
     width: 30px;
-    background:url(/web/css/images/bg.gif) no-repeat scroll 0 -1888px ;
+    background:url(./images/bg.gif) no-repeat scroll 0 -1888px ;
 }
 .friendlink_l h2 {
     color: #fff;
@@ -283,7 +283,7 @@ fieldset, img {
 }
 
 #shortcut {
-    background: url("/web/css/images/index_bg.gif") repeat-x scroll 0 0 #f8f8f8;
+    background: url("./images/index_bg.gif") repeat-x scroll 0 0 #f8f8f8;
     height: 31px;
     width: 100%;
     z-index: 99999;
@@ -295,7 +295,7 @@ fieldset, img {
     z-index: 9999;
 }
 #shortcut ul li {
-    background: url("/web/css/images/new_index0306.png") no-repeat scroll -138px -102px ;
+    background: url("./images/new_index0306.png") no-repeat scroll -138px -102px ;
     float: left;
     height: 30px;
     margin-right: 10px;

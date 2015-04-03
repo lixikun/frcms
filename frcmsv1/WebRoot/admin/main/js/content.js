@@ -7,7 +7,7 @@ var noticeIndex = {
         var param = {}, me = this;      
         param.rows = 5;
         param.page = 0;
-        CommonUtils.invokeAsyncAction('/Sys/Notice!queryEffNoticeList.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Notice!queryEffNoticeList.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){
@@ -35,7 +35,7 @@ var noticeIndex = {
     openDetail:function(notice_id){
     	var param = {}, me = this;      
         param["notice.notice_id"] = notice_id;
-    	CommonUtils.invokeAsyncAction('/Sys/Notice!queryContentDetail.do', param, function (reply) {
+    	CommonUtils.invokeAsyncAction(base+'/Sys/Notice!queryContentDetail.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){

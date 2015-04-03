@@ -1,8 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
+<%
+	String baseUri = request.getContextPath();
+%>
 <jsp:include page="/admin/main/head.jsp"></jsp:include>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/ueditor1_3_6/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="<%=baseUri %>/public/ueditor1_3_6/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
     .top_5{
        padding-top: 5px;

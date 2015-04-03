@@ -12,7 +12,7 @@ var Role = {
             param["tbRole.role_name"] = role_name;
             param["tbRole.role_desc"] = role_desc;
             var me = this;
-            CommonUtils.invokeAsyncAction('/Sys/Sys!insertRole.do', param, function (reply) {
+            CommonUtils.invokeAsyncAction(base+'/Sys/Sys!insertRole.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -39,7 +39,7 @@ var Role = {
             param["tbRole.role_desc"] = role_desc;
             param["tbRole.role_id"] = obj;           
             var me = this;
-            CommonUtils.invokeAsyncAction('/Sys/Sys!updateRole.do', param, function (reply) {
+            CommonUtils.invokeAsyncAction(base+'/Sys/Sys!updateRole.do', param, function (reply) {
 				if((reply || '') !=''){
 					var code = reply._code;
 	                if(code=='0'){
@@ -57,7 +57,7 @@ var Role = {
         var me = this;
         var param = {};
         param["tbRole.role_id"] = obj;
-        CommonUtils.invokeAsyncAction('/Sys/Sys!deleteRole.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Sys!deleteRole.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){
@@ -96,7 +96,7 @@ var Role = {
     queryRoleById: function (obj) {
         var param = {}, me = this;
         param["tbRole.role_id"] = obj;        
-        CommonUtils.invokeAsyncAction('/Sys/Sys!getRoleInfo.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Sys!getRoleInfo.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){
@@ -121,7 +121,7 @@ var Role = {
         	return;
         }
         $('#menu_tree').tree({
-    		url:"/Sys/Login!getNoSelectRootMenuByRole.do?roleId="+row.role_id,	
+    		url:base+"/Sys/Login!getNoSelectRootMenuByRole.do?roleId="+row.role_id,	
     		checkbox: true,
     		cascadeCheck:true,
     		loadFilter:function(data){        	            	
@@ -159,7 +159,7 @@ var Role = {
     	});  
         
         $('#menu_select_tree').tree({
-    		url:"/Sys/Login!getRootMenuByRole.do?roleId="+row.role_id,	
+    		url:base+"/Sys/Login!getRootMenuByRole.do?roleId="+row.role_id,	
     		checkbox: true,
     		cascadeCheck:true,
     		loadFilter:function(data){ 
@@ -236,7 +236,7 @@ var Role = {
         param["addRoleMenus"] = addRoleMenus;
         param["roleId"] = row.role_id;
 
-        CommonUtils.invokeAsyncAction('/Sys/Login!saveRoleMenu.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/Login!saveRoleMenu.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){	
@@ -393,7 +393,7 @@ var Role = {
 
 $(function () {
     $('#roleList').datagrid({
-        url: '/Sys/User!queryRoleList.do',
+        url: base+'/Sys/User!queryRoleList.do',
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},

@@ -20,7 +20,7 @@ var ChannelOperate ={
 				return false;
 			}
 			var queryString = $('#channelForm').formSerialize();			
-			CommonUtils.invokeAsyncAction('/Channel/Channel!updateChannel.do',queryString,function(reply){
+			CommonUtils.invokeAsyncAction(base+'/Channel/Channel!updateChannel.do',queryString,function(reply){
 				var result = reply.ret;
 				if(result && result.code=='0'){					
 					self.getDialog().close();
@@ -35,12 +35,17 @@ var ChannelOperate ={
 			self.getDialog().close();
 		});
 	},
-	uploadFile:function(){		
-		CommonUtils.uploadFile("/Common/uploadImg.do", "uploadFile", {}, function(result){
+	uploadFile:function(){	
+		var fileName = $("#uploadFile").val();
+		if(fileName==""){
+			$.ligerDialog.warn("请先选择文件!")
+			return false;
+		}
+		CommonUtils.uploadFile(base+"/Common/uploadImg.do", "uploadFile", {}, function(result){
 			if(result.ret){
 				result = result.ret;
 				if(result.code=="0"){
-					$("#uploadImgPath1").val(result.filePath);
+					$("#uploadImgPath1").val(base+result.filePath);
 				}
 			}
 		});

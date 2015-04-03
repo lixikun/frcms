@@ -1,8 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <jsp:include page="/admin/main/head.jsp"></jsp:include>
-<link rel="stylesheet" href="/public/common/ress/css/reset.css" type="text/css" />
-<link rel="stylesheet" href="/public/common/ress/css/main.css" type="text/css" />
+<link rel="stylesheet" href="<%=baseUri %>/public/common/ress/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="<%=baseUri %>/public/common/ress/css/main.css" type="text/css" />
 <style>
 html, body{overflow-y:auto;}
 </style>

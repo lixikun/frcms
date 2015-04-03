@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
+<%
+	String baseUri = request.getContextPath();	 
+%>
 <jsp:include page="/admin/main/head_new.jsp"></jsp:include>
-<link href="/public/ligerUI/skins/Gray/css/grid.css" rel="stylesheet" type="text/css"/>
+<link href="<%=baseUri %>/public/ligerUI/skins/Gray/css/grid.css" rel="stylesheet" type="text/css"/>
 <div id="mainLayout" style="width:99.2%; margin:0 auto; margin-top:4px"> 
 	 <div position="left"  title="栏目目录" id="leftLayout"> 
         	<div style="margin-top:10px">
@@ -16,5 +19,5 @@
           </div> 
       </div> 
 </div>
-<script type="text/javascript" src="/admin/channel/js/channel.js"></script>
+<script type="text/javascript" src="<%=baseUri %>/admin/channel/js/channel.js"></script>
 <jsp:include page="/admin/main/foot.jsp"></jsp:include>

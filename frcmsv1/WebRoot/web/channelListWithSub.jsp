@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <s:action name="web!commonNavHeader" executeResult="true">	
 	<s:param name="channel.title"><s:property value="channel.title" /></s:param>	
 </s:action>
@@ -15,18 +18,18 @@
           <s:if test="flag != 1"> <%--展示页面列表 --%>
           <div class="sidebar_b">
           	<div class="position" >
-          		<span> Current Position：<a href="/">Home</a>/
-          			<a href="<s:if test="channel.link!=null&&channel.link!=''"><s:property value="%{channel.link}"/></s:if><s:else><s:property value="%{channel.channel_path+getText('?channelId=')+channel.channel_id}"/></s:else>"><s:property value="channel.channel_name" /></a></span></div>
+          		<span> Current Position：<a href="<%=baseUri %>/">Home</a>/
+          			<a href="<%=baseUri %><s:if test="channel.link!=null&&channel.link!=''"><s:property value="%{channel.link}"/></s:if><s:else><s:property value="%{channel.channel_path+getText('?channelId=')+channel.channel_id}"/></s:else>"><s:property value="channel.channel_name" /></a></span></div>
           	<div class="right_main">
                 <div class="listb_name"><h2><s:property value="channel.channel_name" /></h2></div>
                      <div class="listb">
                      <ul>  
                      	<s:iterator  value="conetentList"  id="content" status="st">                       
-                        <li><a href="/web_showContentDetail.do?contentId=<s:property value="#content.content_id" />&pid=<s:property value="pid" />" title="<s:property value="#content.title" />" target="_blank"><s:property value="#content.title" /></a></li>
+                        <li><a href="<%=baseUri %>/web_showContentDetail.do?contentId=<s:property value="#content.content_id" />&pid=<s:property value="pid" />" title="<s:property value="#content.title" />" target="_blank"><s:property value="#content.title" /></a></li>
                       	</s:iterator>
                       </ul>
                  </div>
-                 <div class="bottom_line"><img width="692" height="22" src="/web/css/images/bottom_line.gif"></div>
+                 <div class="bottom_line"><img width="692" height="22" src="<%=baseUri %>/web/css/images/bottom_line.gif"></div>
                  <%-- 
                  <div class="page">
                      <div class="pagelist">
@@ -71,7 +74,7 @@
 		            	<tr>
 		              		<td height="35">&nbsp;</td>
 		              		<td width="196" class="text-xbt4">
-		              		   <a  href="<s:if test="#subChannel.link!=null&&#subChannel.link!=''"><s:property value="%{#subChannel.link}"/></s:if><s:else><s:property value="%{#subChannel.channel_path+getText('?channelId=')+#subChannel.channel_id}"/></s:else>">
+		              		   <a  href="<%=baseUri %><s:if test="#subChannel.link!=null&&#subChannel.link!=''"><s:property value="%{#subChannel.link}"/></s:if><s:else><s:property value="%{#subChannel.channel_path+getText('?channelId=')+#subChannel.channel_id}"/></s:else>">
 				      			<s:property value="#subChannel.channel_name"/>
 				      		  </a>
 		              		</td>
@@ -82,7 +85,7 @@
             		<tr>
 	              		<td height="35">&nbsp;</td>
 	              		<td width="196" class="text-xbt4">
-	              		   <a  href="<s:if test="channel.link!=null&&channel.link!=''"><s:property value="%{channel.link}"/></s:if><s:else><s:property value="%{channel.channel_path+getText('?channelId=')+channel.channel_id}"/></s:else>">
+	              		   <a  href="<%=baseUri %><s:if test="channel.link!=null&&channel.link!=''"><s:property value="%{channel.link}"/></s:if><s:else><s:property value="%{channel.channel_path+getText('?channelId=')+channel.channel_id}"/></s:else>">
 			      			<s:property value="channel.channel_name"/>
 			      		  </a>
 	              		</td>

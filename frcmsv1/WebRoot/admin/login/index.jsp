@@ -1,12 +1,17 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>飞锐电子科技-CMS管理系统</title>
-<link rel="stylesheet" href="/public/common/ress/css/reset.css" type="text/css" />
-<link rel="stylesheet" href="/public/common/ress/css/login.css" type="text/css" />
-
-
+<link rel="stylesheet" href="<%=baseUri%>/public/common/ress/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="<%=baseUri%>/public/common/ress/css/login.css" type="text/css" />
+<script language="javascript" type="text/javascript" >
+	var base="<%=baseUri%>";
+</script>
 </head>
 <style type="text/css">
 *{ margin:0; padding:0; font-size:100%; }
@@ -44,13 +49,13 @@ html{box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:borde
                    	  	<th>验证码：</th>
                   	</tr>
                   	<tr>
-                    	<td><input type="text" style="width:80px" name="valid_code" class="Input2"><img id="valid_code_img" src="/public/image.jsp" style="cursor:pointer;padding-top:3px" onclick="javascript:this.src='/public/image.jsp?d='+(new Date());"></td>
+                    	<td><input type="text" style="width:80px" name="valid_code" class="Input2"><img id="valid_code_img" src="<%=baseUri%>/public/image.jsp" style="cursor:pointer;padding-top:3px" onclick="javascript:this.src='<%=baseUri%>/public/image.jsp?d='+(new Date());"></td>
                   	</tr>
                	</table>
 		  </div>
             <div class="login_bnt">
-		    <div class="bnt_login" id="login_btn" onMouseOver="this.style.backgroundImage='url(/public/common/ress/images/login/login_hover.png)'"
-                 onMouseOut="this.style.backgroundImage='url(/public/common/ress/images/login/login_normal.png)'">
+		    <div class="bnt_login" id="login_btn" onMouseOver="this.style.backgroundImage='url(<%=baseUri%>/public/common/ress/images/login/login_hover.png)'"
+                 onMouseOut="this.style.backgroundImage='url(<%=baseUri%>/public/common/ress/images/login/login_normal.png)'">
              </div>
             </div>
 		</div>
@@ -59,11 +64,11 @@ html{box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:borde
   </div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="/public/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="/public/easyui/themes/icon.css">
-<script type="text/javascript" src="/public/common/ress/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="/public/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/public/common/ress/js/CommonUtils.js"></script>
-<script type="text/javascript" src="/admin/login/login.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/easyui/themes/icon.css">
+<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="<%=baseUri%>/public/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/CommonUtils.js"></script>
+<script type="text/javascript" src="<%=baseUri%>/admin/login/login.js"></script>
 </body>
 </html>

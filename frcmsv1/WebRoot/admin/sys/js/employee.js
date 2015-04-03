@@ -26,7 +26,7 @@ var Employee = {
             return;
         }
         //alert(param.state);
-        CommonUtils.invokeAsyncAction('/Sys/User!insertUser.do', param, function (reply) {           
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!insertUser.do', param, function (reply) {           
             var code = reply._code;
             var msg = reply._msg;
             if (code == "0") {
@@ -62,7 +62,7 @@ var Employee = {
             return;
         }
        
-        CommonUtils.invokeAsyncAction('/Sys/User!updateUser.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!updateUser.do', param, function (reply) {
         	var code = reply._code;
             var msg = reply._msg;
             if (code == "0") {
@@ -100,7 +100,7 @@ var Employee = {
         param["user.user_id"] = id;
         param["page"] = 1;
         param["rows"] = 10;
-        CommonUtils.invokeAsyncAction('/Sys/User!queryUserById.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!queryUserById.do', param, function (reply) {
             if ((reply || '') !== '') {
                 var result = reply.ret[0];
                 me.setUserInfo(result);
@@ -156,7 +156,7 @@ var Employee = {
         var me = this;
         var row = me.getSelect();
         $('#employee_role_list').datagrid({
-            url: '/Sys/User!queryRoleIdByUserId.do',
+            url: base+'/Sys/User!queryRoleIdByUserId.do',
             loadFilter:function(data){			
 				return Employee.loadFilter(data);
 			},
@@ -187,7 +187,7 @@ var Employee = {
         var param = {};
         param.ids = ids;
         param["user.user_id"] = row.user_id;
-        CommonUtils.invokeAsyncAction('/Sys/User!saveUserRole.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!saveUserRole.do', param, function (reply) {
         	if ((reply || '') != '') {
                 var code = reply._code;
                 if(code=='0'){
@@ -221,7 +221,7 @@ var Employee = {
         param["user.user_id"] = row.user_id;
         param.ids = ids;
 
-        CommonUtils.invokeAsyncAction('/Sys/User!deleteUserRole.do', param, function (reply) {           
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!deleteUserRole.do', param, function (reply) {           
             if ((reply || '') != '') {
                 var code = reply._code;               
                 if (code == '0') {                    
@@ -240,7 +240,7 @@ var Employee = {
     	var me = this;       
         var param = {};
         param["user.user_id"] =user_id;    
-        CommonUtils.invokeAsyncAction('/Sys/User!deleteUser.do', param, function (reply) {           
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!deleteUser.do', param, function (reply) {           
             var code = reply._code;
             var msg = reply._msg;
             if (code == "0") {
@@ -266,7 +266,7 @@ var Employee = {
     	var options = {
   			  target:'#output',
   			  type:'POST',
-  			  url:'/Sys/User!importUser.do',
+  			  url:base+'/Sys/User!importUser.do',
   			  data:{},				  
   			  beforeSubmit:function(){
   				  $("#execel_info_tb").mask("导入中,请稍后...");					  
@@ -310,7 +310,7 @@ var Employee = {
 
 $(function () {	
 	$('#organizationTree').tree({
-		url:"/Sys/Organation!queryTreeList.do?tbOrganation.up_org_id=-1",		
+		url:base+"/Sys/Organation!queryTreeList.do?tbOrganation.up_org_id=-1",		
 		loadFilter:function(data){
 			return CommonUtils.loadFilter(data);
 		},
@@ -318,7 +318,7 @@ $(function () {
 			var node = $('#organizationTree').tree('getSelected');			
 			var param = {"tbOrganation.up_org_id":node.id};			
 			if($('#organizationTree').tree('isLeaf',node.target)){
-				CommonUtils.invokeAsyncAction('/Sys/Organation!queryTreeList.do', param, function (reply) {
+				CommonUtils.invokeAsyncAction(base+'/Sys/Organation!queryTreeList.do', param, function (reply) {
 					if((reply || '') !=''){
 						var code = reply._code;
 		                if(code=='0'){	 
@@ -345,7 +345,7 @@ $(function () {
 		}
 	});
     $('#staffList').datagrid({
-        url: '/Sys/User!queryUser.do',
+        url: base+'/Sys/User!queryUser.do',
         loadFilter:function(data){			
 			return Employee.loadFilter(data);
 		},
@@ -423,7 +423,7 @@ $(function () {
                     });  
                     
                     $('#roleList').datagrid({
-                    	url:'/Sys/User!queryRoleList.do',
+                    	url:base+'/Sys/User!queryRoleList.do',
                     	loadFilter:function(data){			
             				return Employee.loadFilter(data);
             			}

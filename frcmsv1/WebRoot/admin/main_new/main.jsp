@@ -1,26 +1,32 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>飞锐电子科技-FRCMS管理系统</title>
-    <link rel="stylesheet" type="text/css" href="/public/common/ress/css/common.css">
-	<link rel="stylesheet" type="text/css" href="/public/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="/public/common/ress/css/jq/jquery.loadmask.css">
-	<link rel="stylesheet" type="text/css" href="/public/easyui/themes/icon.css">
-	<link href="/public/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/common/ress/css/common.css">
+	<link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/common/ress/css/jq/jquery.loadmask.css">
+	<link rel="stylesheet" type="text/css" href="<%=baseUri%>/public/easyui/themes/icon.css">
+	<link href="<%=baseUri%>/public/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" id="mylink"/>     
-    <link href="/public/common/ress/css/mainnew.css" rel="stylesheet" type="text/css" />
-    <script src="/public/common/ress/js/jquery-1.5.1.min.js" type="text/javascript"></script>     
-	<script type="text/javascript" src="/public/common/ress/js/jquery.loadmask.min.js"></script>
-	<script type="text/javascript" src="/public/common/ress/js/jquery.form.js"></script>
-	<script type="text/javascript" src="/public/easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="/public/easyui/locale/easyui-lang-zh_CN.js"></script>   
-    <script src="/public/ligerUI/js/ligerui.all.js" type="text/javascript"></script>    
-    <script src="/public/common/ress/js/jquery.cookie.js"></script>
-    <script src="/public/ligerUI/json2.js"></script>    
-	<script type="text/javascript" src="/public/common/ress/js/CommonUtils.js"></script>
-    <script src="/admin/main_new/js/index.js" type="text/javascript"></script>
+    <link href="<%=baseUri%>/public/common/ress/css/mainnew.css" rel="stylesheet" type="text/css" />
+    <script src="<%=baseUri%>/public/common/ress/js/jquery-1.5.1.min.js" type="text/javascript"></script>     
+	<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/jquery.loadmask.min.js"></script>
+	<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/jquery.form.js"></script>
+	<script type="text/javascript" src="<%=baseUri%>/public/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=baseUri%>/public/easyui/locale/easyui-lang-zh_CN.js"></script>   
+    <script src="<%=baseUri%>/public/ligerUI/js/ligerui.all.js" type="text/javascript"></script>    
+    <script src="<%=baseUri%>/public/common/ress/js/jquery.cookie.js"></script>
+    <script src="<%=baseUri%>/public/ligerUI/json2.js"></script>    
+	<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/CommonUtils.js"></script>
+	<script language="javascript" type="text/javascript" >
+		var base="<%=baseUri%>";
+	</script>
+    <script src="<%=baseUri%>/admin/main_new/js/index.js" type="text/javascript"></script>
   <style type="text/css"> 
     body,html{height:100%;}
     body{ padding:0px; margin:0;   overflow:hidden;}  
@@ -64,10 +70,10 @@
         </ul>
     </div>
     <div class="header_right">
-    	<!--  <a id="profile" href="javascript:void(0)"><img src="/public/common/ress/images/main/icon_home.png" width="16" height="16" style="vertical-align:middle;">&nbsp;个人资料</a> -->
-    	<a id="mdfPwd" href="javascript:void(0)"><img src="/public/common/ress/images/main/icon_home.png" width="16" height="16" style="vertical-align:middle;">&nbsp;修改密码</a>
+    	<!--  <a id="profile" href="javascript:void(0)"><img src="<%=baseUri%>/public/common/ress/images/main/icon_home.png" width="16" height="16" style="vertical-align:middle;">&nbsp;个人资料</a> -->
+    	<a id="mdfPwd" href="javascript:void(0)"><img src="<%=baseUri%>/public/common/ress/images/main/icon_home.png" width="16" height="16" style="vertical-align:middle;">&nbsp;修改密码</a>
     	<!--   <a id="relogin" href="javascript:void(0)"><img src="/public/common/ress/images/main/icon_reset.png" width="16" height="16" style="vertical-align:middle;">&nbsp;重新登录</a>-->
-    	<a id="logout" href="javascript:void(0)"><img src="/public/common/ress/images/main/icon_close.png" width="16" height="16" style="vertical-align:middle;">&nbsp;退出</a>
+    	<a id="logout" href="javascript:void(0)"><img src="<%=baseUri%>/public/common/ress/images/main/icon_close.png" width="16" height="16" style="vertical-align:middle;">&nbsp;退出</a>
     </div>
     <div class="clear"></div>
 </div>
@@ -77,7 +83,7 @@
         			<div title="<s:property value="#menu.menu_name" escape="false"/>" class="l-scroll">
                          <ul id="tree<s:property value="#menu.menu_id" />" class="ligerTree" style="margin-top:3px;">                         	
                          	<s:iterator  value="#menu.sub_menu_list"  id="subMenu">
-                         		<li isexpand="true" menu_name="<s:property value="#subMenu.menu_name" escape="false"/>" menu_id="<s:property value="#subMenu.menu_id" />" menu_url="<s:property value="#subMenu.menu_url" />" url_open_type="<s:property value="#subMenu.url_open_type" />">
+                         		<li isexpand="true" menu_name="<s:property value="#subMenu.menu_name" escape="false"/>" menu_id="<s:property value="#subMenu.menu_id" />" menu_url="<%=baseUri%>/<s:property value="#subMenu.menu_url" />" url_open_type="<s:property value="#subMenu.url_open_type" />">
                          			<span><s:property value="#subMenu.menu_name" escape="false"/></span>
                          		</li>	
                          	</s:iterator>
@@ -87,7 +93,7 @@
         </div>
         <div position="center" id="framecenter"> 
             <div tabid="home" title="我的主页" style="height:300px" >
-                <iframe frameborder="0" name="home" id="home" src="/admin/main/content.jsp"></iframe>
+                <iframe frameborder="0" name="home" id="home" src="<%=baseUri%>/admin/main/content.jsp"></iframe>
             </div> 
         </div> 
         

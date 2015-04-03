@@ -22,13 +22,13 @@ var Login={
             param.valid_code=valid_code;
             if(!sign){
             	sign = true;
-            	CommonUtils.invokeAsyncAction('/Sys/Login!validateLogin.do',param,function(reply){
+            	CommonUtils.invokeAsyncAction(base+'/Sys/Login!validateLogin.do',param,function(reply){
                     var result=reply.ret;                    
                     sign=false;
                     if(!result||reply==result) alert("系统超时未返回，请重试!");	  
           		 
           		  	if(result.code=='0'){          		  		
-          		  		window.location.href="/Sys/main.do?r="+(new Date());
+          		  		window.location.href=base+"/Sys/main.do?r="+(new Date());
           		  	}else{  	    
           		  		Login.refreshValidCode();
           		  		alert(result.msg);
@@ -57,7 +57,7 @@ var Login={
         return true;
     },
     refreshValidCode:function(){    	
-    	$("#valid_code_img").attr("src",'/public/image.jsp?d='+(new Date()));
+    	$("#valid_code_img").attr("src",base+'/public/image.jsp?d='+(new Date()));
     }
 }
 

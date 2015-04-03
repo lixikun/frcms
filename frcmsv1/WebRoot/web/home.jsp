@@ -1,20 +1,23 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Welcome to YRIHR</title>
-<link rel="stylesheet" href="/web/css/main.css" type="text/css" />
-<script src="/public/common/ress/js/jquery-1.5.1.min.js" type="text/javascript"></script>
-<script src="/public/SuperSlide/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script> 
-<script type="text/javascript" src="/web/js/main.js" ></script>
+<link rel="stylesheet" href="web/css/main.css" type="text/css" />
+<script src="<%=baseUri %>/public/common/ress/js/jquery-1.5.1.min.js" type="text/javascript"></script>
+<script src="<%=baseUri %>/public/SuperSlide/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script> 
+<script type="text/javascript" src="<%=baseUri %>/web/js/main.js" ></script>
 <style type="text/css">
 	 /* 本例子css */
 	.picMarquee-left{ overflow:hidden; position:relative;   margin:0px width:980px;}
 	.picMarquee-left .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
 	.picMarquee-left .hd .prev,.picMarquee-left .hd .next{ display:block;  width:5px; height:9px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
-		 cursor:pointer; background:url("/web/css/images/arrow.png") no-repeat;}
+		 cursor:pointer; background:url("<%=baseUri %>/web/css/images/arrow.png") no-repeat;}
 	.picMarquee-left .hd .next{ background-position:0 -50px;  }
 	.picMarquee-left .hd .prevStop{ background-position:-60px 0; }
 	.picMarquee-left .hd .nextStop{ background-position:-60px -50px; }
@@ -45,10 +48,10 @@
 	      </div>
      </div>
 	  <div style="width:980px;">
-	       <img src="/web/images/top-bg.jpg" width="980" height="134">
+	       <img src="<%=baseUri %>/web/images/top-bg.jpg" width="980" height="134">
 	  </div> 
 	  <div style="width:980px;">
-	      <img src="/web/images/top.jpg" width="980" height="280">
+	      <img src="<%=baseUri %>/web/images/top.jpg" width="980" height="280">
 	  </div>
 	   
 	  <div class="nav">  
@@ -64,8 +67,8 @@
 	     <s:iterator  value="headNavList"  id="headNav" status="st">	
 	        <s:if test="#headNav.channel_id != 1">
 		        <td align="center" width="<s:property value="#headNav.title_img_width" default="163"/>" height="<s:property value="#headNav.title_img_height" default="45"/>"> 
-		     		<a <s:if test="#st.last == false" > class="navborderRight" </s:if> href="<s:if test="#headNav.link!=null&&#headNav.link!=''"><s:property value="%{#headNav.link}"/></s:if><s:else><s:property value="%{#headNav.channel_path+getText('?channelId=')+#headNav.channel_id}"/></s:else>">
-		     			<img border="0" width="<s:property value="#headNav.title_img_width" default="174"/>" height="<s:property value="#headNav.title_img_height" default="45"/>" src="<s:property value="#headNav.title_img"/>"/>
+		     		<a <s:if test="#st.last == false" > class="navborderRight" </s:if> href="<%=baseUri %><s:if test="#headNav.link!=null&&#headNav.link!=''"><s:property value="%{#headNav.link}"/></s:if><s:else><s:property value="%{#headNav.channel_path+getText('?channelId=')+#headNav.channel_id}"/></s:else>">
+		     			<img border="0" width="<s:property value="#headNav.title_img_width" default="174"/>" height="<s:property value="#headNav.title_img_height" default="45"/>" src="<%=baseUri %><s:property value="#headNav.title_img"/>"/>
 		     		</a>
 		     	</td>	
 	     	</s:if>     	      
@@ -75,8 +78,8 @@
 	    <s:iterator  value="picList"  id="pic" status="st" begin="0" end="5">	
 	        <s:if test="#headNav.channel_id != 1">
 		        <td align="center" width="<s:property value="#pic.title_img_width" default="163"/>" height="<s:property value="#pic.title_img_height" default="45"/>"> 
-		     		<a href="<s:property value="%{#pic.channel_path}"/>" target="_blank">
-								<img src="<s:property value="%{#pic.title_img}"/>" width="<s:property value="#pic.title_img_width" default="164"/>" height="<s:property value="#headNav.pic" default="114"/>" />
+		     		<a href="<%=baseUri %><s:property value="%{#pic.channel_path}"/>" target="_blank">
+								<img src="<%=baseUri %><s:property value="%{#pic.title_img}"/>" width="<s:property value="#pic.title_img_width" default="164"/>" height="<s:property value="#headNav.pic" default="114"/>" />
 							</a>
 		     	</td>	
 	     	</s:if>     	      
@@ -117,7 +120,7 @@
 		          <td align="center" width="80" height="50" class="text-xbt4">Search</td>
 		          <td width="400">
 					<div id="search" style="padding:0px 0px" >
-						<form action="/web_search.do" method="post" id="searvhForm" target="_blank">  
+						<form action="web_search.do" method="post" id="searvhForm" target="_blank">  
 			    			<input type="text" style="width:250px;height:25px;" onblur="if(this.value==''){this.value='Please input the search content'}"  onfocus="if(this.value=='Please input the search content'){this.value=''}"  value="Please input the search content" id="key" name="key">
 			    			<input type="submit" class="button" value="Search" onclick="return doSearch();">
   						</form>

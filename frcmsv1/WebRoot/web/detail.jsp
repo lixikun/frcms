@@ -1,12 +1,15 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <s:set var="content" value="result.content" />
 <s:set var="contentTxt" value="result.contentTxt" />
 <s:action name="web!commonNavHeader" executeResult="true">
 	<s:param name="channel.title"><s:property value="#content.title" /></s:param>
 </s:action>
 
-<script type="text/javascript" src="/web/js/main.js" ></script>
+<script type="text/javascript" src="<%=baseUri %>/web/js/main.js" ></script>
 <table width="982" border="0" align="center" cellpadding="0" cellspacing="0" >  
   <tr> 
     <td>
@@ -40,7 +43,7 @@
 	            <tr>
 	              <td style="vertical-align:top">
 	              	<div id="search" style="padding:0px 0px;width:230px" >
-							<form action="/web_search.do" method="post" id="searvhForm" target="_blank">  
+							<form action="<%=baseUri %>/web_search.do" method="post" id="searvhForm" target="_blank">  
 				    			<input type="text" style="width:220px" onblur="if(this.value==''){this.value='Please input the search content'}"  onfocus="if(this.value=='Please input the search content'){this.value=''}"  value="Please input the search content" id="key" name="key">
 				    			<div style="height:10px;"></div>
 				    			<input type="submit" class="button" value="Search" onclick="return doSearch();">
