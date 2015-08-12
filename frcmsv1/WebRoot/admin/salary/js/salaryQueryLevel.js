@@ -36,7 +36,7 @@ var Employee = {
 
 $(function () {	
     $('#salaryList').datagrid({
-        url: '/Salary/Salary!qrySalaryByLevelEmployee.do',
+        url: base+'/Salary/Salary!qrySalaryByLevelEmployee.do',
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},		
@@ -55,7 +55,7 @@ $(function () {
             	    var s_org_name = $('input[name="s_org_name"]').val();
             	    strParam += "&busSalary.org_name="+encodeURI(encodeURI(s_org_name));
             	    strParam += "&q=1";
-            	    var url = "/Salary/Salary!eportLevelSarary.do?"+strParam;
+            	    var url =base+ "/Salary/Salary!eportLevelSarary.do?"+strParam;
             	    //alert(url);
             	    if(parent.parent.document){
 						parent.document.location.href=url;

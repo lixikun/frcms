@@ -215,13 +215,13 @@ public class SalaryDto implements Serializable {
 	@ExcelAnnotation(exportName = "其他")
 	private String other;
 	
-	@ExcelAnnotation(exportName = "其他1")
+	@ExcelAnnotation(exportName="津补贴扣款额度")
 	private String other11;
-	
-	@ExcelAnnotation(exportName = "其他2")
+	    
+	@ExcelAnnotation(exportName="预扣养老保险")
 	private String other12;
-	
-	@ExcelAnnotation(exportName = "其他3")
+	    
+	@ExcelAnnotation(exportName="预扣职业年金")
 	private String other13;
 	
 	@ExcelAnnotation(exportName = "其他4")

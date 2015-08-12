@@ -33,7 +33,7 @@ var Employee = {
     	var options = {
   			  target:'#output',
   			  type:'POST',
-  			  url:'/Salary/Salary!importSalary.do',
+  			  url:base+'/Salary/Salary!importSalary.do',
   			  data:{},				  
   			  beforeSubmit:function(){
   				  //$("#execel_info").mask("操作中...");					  
@@ -66,7 +66,7 @@ var Employee = {
 
 $(function () {	
     $('#salaryList').datagrid({
-        url: '/Salary/Salary!qrySalaryByEmployee.do',
+        url: base+'/Salary/Salary!qrySalaryByEmployee.do',
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},		
@@ -80,7 +80,7 @@ $(function () {
             	    var strParam = "busSalary.salary_type="+param["busSalary.salary_type"];
             	    strParam += "&busSalary.salary_schedule_start="+param["busSalary.salary_schedule_start"];
             	    strParam += "&busSalary.salary_schedule_end="+param["busSalary.salary_schedule_end"];
-            	    var url = "/Salary/Salary!eportSarary.do?"+strParam;
+            	    var url = base+"/Salary/Salary!eportSarary.do?"+strParam;
             	    //alert(url);
             	    if(parent.parent.document){
 						parent.document.location.href=url;

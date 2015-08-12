@@ -59,7 +59,10 @@ public class BusSalaryLevel implements Serializable {
     
     @ExcelAnnotation(exportName="保留奖金")
     private Float left_award;
-
+    
+    @ExcelAnnotation(exportName="津补贴扣款额度")
+    private Float other11;
+    
     @ExcelAnnotation(exportName="补贴小计")
     private Float allowance_sum;
     
@@ -164,6 +167,12 @@ public class BusSalaryLevel implements Serializable {
     @ExcelAnnotation(exportName="住房公积金")
     private Float house_fund;
     
+    @ExcelAnnotation(exportName="预扣养老保险")
+    private Float other12;
+    
+    @ExcelAnnotation(exportName="预扣职业年金")
+    private Float other13;
+    
     @ExcelAnnotation(exportName="代扣税")
     private Float tax_fee;    
     
@@ -211,11 +220,9 @@ public class BusSalaryLevel implements Serializable {
     
     private String position_level;
     
-    private Float other11;
+   
     
-    private Float other12;
-    
-    private Float other13;
+   
     
     private Float other14;
     

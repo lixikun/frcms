@@ -49,7 +49,8 @@
 				<th field="book_fee" width="60px">书报费</th>
 				<th field="profession_allowance" width="60px">职务津贴</th>
 				<th field="pre_allowance" width="60px">预增津补贴</th>
-				<th field="left_award" width="60px">保留奖金</th>				
+				<th field="left_award" width="60px">保留奖金</th>	
+				<th field="other11" width="80px">津补贴扣款额度</th>				
 				<th field="allowance_sum" width="60px">补贴小计</th>
 				<th field="civi_award" width="50px">文明奖</th>
 				<th field="one_child_fee" width="50px">独子费</th>
@@ -85,7 +86,9 @@
 				<th field="unemployment_insurance" width="60px">失业保险</th>
 				<th field="medical_insurance" width="60px">医疗保险</th>
 				<th field="house_fund" width="70px">住房公积金</th>
-				<th field="re_house_fund" width="70px">补扣公积金</th>				
+				<th field="re_house_fund" width="70px">补扣公积金</th>	
+				<th field="other12" width="80px">预扣养老保险</th>
+				<th field="other13" width="80px">预扣职业年金</th>				
 				<th field="tax_fee" width="50px">代扣税</th>
 				<th field="loan_fee" width="50px">扣借款</th>
 				<th field="other_fee" width="60px">其他扣款</th>

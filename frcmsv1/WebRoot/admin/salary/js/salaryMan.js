@@ -21,7 +21,7 @@ var SalaryMan = {
             return;
         }
         //alert(param.state);
-        CommonUtils.invokeAsyncAction('/Sys/User!insertUser.do', param, function (reply) {           
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!insertUser.do', param, function (reply) {           
             var code = reply._code;
             var msg = reply._msg;
             if (code == "0") {
@@ -52,7 +52,7 @@ var SalaryMan = {
             return;
         }
        
-        CommonUtils.invokeAsyncAction('/Sys/User!updateUser.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!updateUser.do', param, function (reply) {
         	var code = reply._code;
             var msg = reply._msg;
             if (code == "0") {
@@ -137,7 +137,7 @@ var SalaryMan = {
         var param = {};
         param.ids = ids;
         param["user.user_id"] = row.user_id;
-        CommonUtils.invokeAsyncAction('/Sys/User!saveUserRole.do', param, function (reply) {
+        CommonUtils.invokeAsyncAction(base+'/Sys/User!saveUserRole.do', param, function (reply) {
         	if ((reply || '') != '') {
                 var code = reply._code;
                 if(code=='0'){
@@ -156,7 +156,7 @@ var SalaryMan = {
     	var options = {
   			  target:'#output',
   			  type:'POST',
-  			  url:'/Salary/Salary!importSalary.do',
+  			  url:base+'/Salary/Salary!importSalary.do',
   			  data:{},				  
   			  beforeSubmit:function(){
   				  $("#execel_info_tb").mask("导入中，请稍后...");					  
@@ -205,7 +205,7 @@ var SalaryMan = {
     	   $.messager.alert('系统提示',"必须输入批次号。", 'info');
     	   return;
        }
-       CommonUtils.invokeAsyncAction('/Salary/Salary!deleteByBatch.do', param, function (reply) {           
+       CommonUtils.invokeAsyncAction(base+'/Salary/Salary!deleteByBatch.do', param, function (reply) {           
            if ((reply || '') != '') {
                var code = reply._code;               
                if (code == '0') {                    
@@ -240,7 +240,7 @@ var SalaryMan = {
     	  if(r){
     		  var param = {};
     		  param["ids"] = ids;
-    	      CommonUtils.invokeAsyncAction('/Salary/Salary!deleteByIds.do', param, function (reply) {           
+    	      CommonUtils.invokeAsyncAction(base+'/Salary/Salary!deleteByIds.do', param, function (reply) {           
     	           if ((reply || '') != '') {
     	               var code = reply._code;               
     	               if (code == '0') {                    
@@ -260,7 +260,7 @@ var SalaryMan = {
 
 $(function () {	
     $('#salaryList').datagrid({
-        url: '/Salary/Salary!qrySalaryByMan.do',
+        url:base+'/Salary/Salary!qrySalaryByMan.do',
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},
@@ -305,7 +305,7 @@ $(function () {
             	    strParam += "&busSalary.user_name="+encodeURI(encodeURI(user_name));  
             	    strParam += "&busSalary.org_name="+encodeURI(encodeURI(org_name));  
             	    strParam += "&q=1";
-            	    var url = "/Salary/Salary!eportSarary.do?"+strParam;
+            	    var url = base+"/Salary/Salary!eportSarary.do?"+strParam;
             	    //alert(url);
             	    if(parent.parent.document){
 						parent.document.location.href=url;

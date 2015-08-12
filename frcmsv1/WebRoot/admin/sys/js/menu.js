@@ -131,7 +131,7 @@ var Menu={
 
 $(function(){
 	$('#menu_tree').tree({
-		url:"/Sys/Login!getSubMenuTreeByUpId.do?menuId=-1",		
+		url:base+"/Sys/Login!getSubMenuTreeByUpId.do?menuId=-1",		
 		loadFilter:function(data){	
 			editIndex = undefined;
 			return Menu.loadFilter(data);
@@ -140,7 +140,7 @@ $(function(){
 			var node = $('#menu_tree').tree('getSelected');			
 			var param = {"menuId":node.id};			
 			if($('#menu_tree').tree('isLeaf',node.target)){
-				CommonUtils.invokeAsyncAction('/Sys/Login!getSubMenuTreeByUpId.do', param, function (reply) {
+				CommonUtils.invokeAsyncAction(base+'/Sys/Login!getSubMenuTreeByUpId.do', param, function (reply) {
 					if((reply || '') !=''){
 						var code = reply._code;
 		                if(code=='0'){	 
