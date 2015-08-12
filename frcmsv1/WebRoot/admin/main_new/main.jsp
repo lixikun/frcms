@@ -83,7 +83,7 @@
         			<div title="<s:property value="#menu.menu_name" escape="false"/>" class="l-scroll">
                          <ul id="tree<s:property value="#menu.menu_id" />" class="ligerTree" style="margin-top:3px;">                         	
                          	<s:iterator  value="#menu.sub_menu_list"  id="subMenu">
-                         		<li isexpand="true" menu_name="<s:property value="#subMenu.menu_name" escape="false"/>" menu_id="<s:property value="#subMenu.menu_id" />" menu_url="<%=baseUri%>/<s:property value="#subMenu.menu_url" />" url_open_type="<s:property value="#subMenu.url_open_type" />">
+                         		<li isexpand="true" menu_name="<s:property value="#subMenu.menu_name" escape="false"/>" menu_id="<s:property value="#subMenu.menu_id" />" menu_url="<s:property value="#subMenu.menu_url" />" url_open_type="<s:property value="#subMenu.url_open_type" />">
                          			<span><s:property value="#subMenu.menu_name" escape="false"/></span>
                          		</li>	
                          	</s:iterator>
