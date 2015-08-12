@@ -87,7 +87,7 @@ function f_heightChanged(options)
         accordion.setHeight(options.middleHeight - 24);
 }
 function f_addTab(tabid, text, url)
-{
+{	
     tab.addTabItem({
         tabid: tabid,
         text: text,
@@ -207,7 +207,7 @@ var Menu={
 		            //console.log(manager);
 				    //alert(node.data.menu_url != (base+"/"));
 				    //alert(node.data.menu_url);
-					if (!node.data.menu_url || node.data.menu_url == (base+"/")){
+					if (!node.data.menu_url){
 		            	//如果节点没有url，查询数据库看是否有子节点。
 						if(!$(node.target).attr("isLoad")){
 			            	self.getSubModule(this,node,node.data.menu_id);
@@ -221,7 +221,11 @@ var Menu={
 		                tabid = new Date().getTime();
 		                $(node.target).attr("tabid", tabid)
 		            } 
-		            f_addTab(tabid, node.data.menu_name, node.data.menu_url);
+		            var url =node.data.menu_url;
+		            if(base!=''){
+		            	url = base+"/"+url;
+		            }
+		            f_addTab(tabid, node.data.menu_name, url);
 		            
 		        }
 		    });
@@ -231,10 +235,12 @@ var Menu={
 			CommonUtils.invokeAsyncAction(base+'/Sys/Login!getSubTwoLevelMenuList.do',{menuId:fun_id},function(reply){
 				var arr=new Array();
 				reply = reply.ret;
-				for(var i in reply ){
-					var r = reply[i];
-					r.menu_url = base+"/"+r.menu_url
-				}
+				//for(var i in reply ){
+				//	var r = reply[i];
+				//	if(base !=''){
+				//		r.menu_url = base+"/"+r.menu_url
+				//	}
+				//}
 				thisTree.append(node.target,reply);
 			});
 		},		
