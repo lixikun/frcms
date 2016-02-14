@@ -19,16 +19,16 @@
 	</commentGenerator> 
   
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://127.0.0.1:3306/frcmsdb"
-        userId="frcms"
-        password="frcms">
+        connectionURL="jdbc:mysql://127.0.0.1:3306/fengruidb"
+        userId="fengrui"
+        password="fengrui">
     </jdbcConnection>
 
     <javaTypeResolver >
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <javaModelGenerator targetPackage="com.flyrui.dao.pojo.channel" targetProject="src">
+    <javaModelGenerator targetPackage="com.flyrui.dao.pojo.bus" targetProject="src">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
@@ -49,7 +49,7 @@
 	enableDeleteByExample="false" enableSelectByExample="false"
 	selectByExampleQueryId="false" >
 	 -->
-	<table schema="fengruiDB" tableName="fr_content_txt" >
+	<table schema="fengruiDB" tableName="bus_rule" >
       <property name="useActualColumnNames" value="true"/>  
     </table>
     
