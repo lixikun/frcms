@@ -12,13 +12,13 @@ var CommonUtils={
 				if(_code == 'SYS_ERR002'){					
 					$.messager.alert("系统提示","你没有登录或登录超时，请登录后操作.","info",function(){
 						if(parent.parent.parent.document){
-							parent.parent.document.location.href="/admin/login";
+							parent.parent.document.location.href=base+"/admin/login";
 						}else if(parent.parent.document){
-							parent.document.location.href="/admin/login";
+							parent.document.location.href=base+"/admin/login";
 						}else if(parent.document){
-							parent.document.location.href="/admin/login";
+							parent.document.location.href=base+"/admin/login";
 						}else{
-							document.location.href="/admin/login";
+							document.location.href=base+"/admin/login";
 						}
 						
 					})

@@ -19,26 +19,31 @@
 	               <label>证件号码：</label><input type="text" name="s_user_code" db_field="busData.user_code" need_encode="1" is_like="1" style="width:100px;">
 	               <label>员工名称：</label><input type="text" name="s_user_name" db_field="busData.col1" need_encode="1" is_like="1" style="width:100px;">	            
 	            </s:if>
+	            <s:else>
+	            	<a href="javascript:void(0);" class="easyui-linkbutton" id="search_btn" iconCls="icon-search">查询</a>
+	            </s:else>
 	           <input type="hidden" db_field="busData.bus_id" is_like="0" value="<s:property value="busId" />"> 
 	        </div>
-            <div style="padding-top:5px">
-                 <s:if test="%{q == 1}">
-	            	<label>批次号：</label><input type="text" name="s_batch_id" db_field="busData.batch_id" is_like="0" style="width:200px;"> 
+	        <s:if test="%{q == 1}">
+            	<div style="padding-top:5px">
+                 
+	            	<label>批次号：</label><input type="text" name="s_batch_id" db_field="busData.batch_id" is_like="0" style="width:250px;"> 
 	            	<a href="javascript:void(0);" class="easyui-linkbutton" id="delete_by_batch_btn" >按批次删除</a>
-	            </s:if>
-	            <a href="javascript:void(0);" class="easyui-linkbutton" id="search_btn" iconCls="icon-search">搜索</a>
-            </div>
+	            
+	            	<a href="javascript:void(0);" class="easyui-linkbutton" id="search_btn" iconCls="icon-search">查询</a>
+            	</div>
+            </s:if>
         </div>
      </div>
 
     <div region="center" title="查询列表" style="padding:2px;"> 
         <table id="salaryList"  rownumbers="true" pagination="true"
-               fitColumns="true" nowrap="false" showFooter="true" singleSelect="false" style="height:400px" checkbox="true" autoRowHeight="false">
+               fitColumns="false" nowrap="false" showFooter="true" singleSelect="false" style="height:400px" checkbox="true" autoRowHeight="false">
             <thead>
             <tr> 
             	<th checkbox="true"></th>
                 <s:iterator  value="busTemplateItemList"  id="busTemplateItem" status="st">             	            	
-            	  <th field="<s:property value="#busTemplateItem.data_col" />" ><s:property value="#busTemplateItem.item_name" /></th>
+            	  <th field="<s:property value="#busTemplateItem.data_col" />" width="<s:property value="#busTemplateItem.display_width" />"><s:property value="#busTemplateItem.item_name" /></th>
         	    </s:iterator>
             </tr>
             </thead>

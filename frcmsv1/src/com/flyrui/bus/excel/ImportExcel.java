@@ -274,7 +274,14 @@ public class ImportExcel<T> {
  													DecimalFormat df = new DecimalFormat();
  													tmpContent = df.parse(cell.toString()).toString();
  												}else {
- 													tmpContent=cell.toString();
+ 													String v = cell.toString();
+ 													if(v.indexOf(".")!=-1){
+ 														String dotValue = v.substring(v.indexOf("."));
+ 														if(dotValue.length()>3){
+ 															v=v.substring(0,v.indexOf("."))+dotValue.substring(0,3);
+ 														}
+ 													}
+ 													tmpContent=v;
  												} 
  											}
  										} else {
@@ -329,6 +336,7 @@ public class ImportExcel<T> {
 							dist.add(tObject);
 						}
 					} catch (Exception e) {
+						e.printStackTrace();
  						this.errMessage+="第"+(rown.getRowNum()+1)+"行数据错误，错误信息："+e.getMessage().toString()+"<br/>";
 						this.errNum++;
 					}

@@ -72,6 +72,7 @@
     <result column="is_display" property="is_display" jdbcType="VARCHAR" />
     <result column="col_index" property="col_index" jdbcType="INTEGER" />
     <result column="is_export" property="is_export" jdbcType="VARCHAR" />
+    <result column="display_width" property="display_width" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="BusTemplate" type="com.flyrui.dao.pojo.bus.BusTemplate" >
@@ -811,7 +812,7 @@
   </update>
   
    <select id="queryBusTemplateItem" resultMap="BusTemplateItem" parameterType="com.flyrui.dao.pojo.bus.BusTemplateItem" >
-    	select item_id, template_id, item_name, item_type, data_col, rule_id, order_id,is_display,col_index,is_export
+    	select item_id, template_id, item_name, item_type, data_col, rule_id, order_id,is_display,col_index,is_export,display_width
     	   from bus_template_item
     where 1=1 
     <if test="item_id != null" >

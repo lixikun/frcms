@@ -22,6 +22,8 @@ public class BusTemplateItem implements Serializable {
     private Integer col_index;
     
     private String is_export;
+    
+    private String display_width;
 
     private static final long serialVersionUID = 1L;
 
@@ -104,6 +106,15 @@ public class BusTemplateItem implements Serializable {
 	public void setIs_export(String isExport) {
 		is_export = isExport;
 	}
+
+	public String getDisplay_width() {
+		return display_width;
+	}
+
+	public void setDisplay_width(String displayWidth) {
+		display_width = displayWidth;
+	}
     
+	
     
 }
