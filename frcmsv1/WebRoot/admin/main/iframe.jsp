@@ -1,11 +1,16 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	String baseUri = request.getContextPath();
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title></title> 
-<link rel="stylesheet" href="/public/common/ress/css/tab.css" type="text/css" />
-<script type="text/javascript" src="/public/common/ress/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="/public/common/ress/js/tab.js"></script>
+<link rel="stylesheet" href="<%=baseUri%>/public/common/ress/css/tab.css" type="text/css" />
+<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/tab.js"></script>
 
 </head>
 <style type="text/css">
@@ -42,8 +47,8 @@ $( function() {
 <div class="tabtop">	
     <div id="tab_menu" style="position:absolute; z-index:0; left:0px; top:0px;"></div>
     <div style=" position:absolute;text-align:right;right:5px; top:2px; width:70px; z-index:2;">
-       <img id="icon_frash" src="/public/common/ress/images/main/icon_frash.jpg" width="19" height="19" />&nbsp;
-	   <img id="icon_close" src="/public/common/ress/images/main/icon_close.jpg" width="19" height="19" />  
+       <img id="icon_frash" src="<%=baseUri%>/public/common/ress/images/main/icon_frash.jpg" width="19" height="19" />&nbsp;
+	   <img id="icon_close" src="<%=baseUri%>/public/common/ress/images/main/icon_close.jpg" width="19" height="19" />  
 </div>
 </div>
 

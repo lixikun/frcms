@@ -124,13 +124,13 @@ else
 var Menu={
 	left_on:'T',
 	init:function(){
-		CommonUtils.invokeAsyncAction('/Sys/Sys!getRootMenuByRole.do',{},function(reply){
+		CommonUtils.invokeAsyncAction(base+'/Sys/Sys!getRootMenuByRole.do',{},function(reply){
 			var arr=new Array();
 			reply = reply.ret;
 			if(reply){
 				for(var i=0,j=reply.length;i<j;i++){
 					var mu = reply[i];
-					arr.push('<li onclick="Menu.getModule('+mu.menu_id+',\''+mu.menu_name+'\')"><p><img src="/public/common/ress/images/main/icon_0'+(i+1)+'.png" width="40" height="40"></p>');
+					arr.push('<li onclick="Menu.getModule('+mu.menu_id+',\''+mu.menu_name+'\')"><p><img src="'+base+'/public/common/ress/images/main/icon_0'+(i+1)+'.png" width="40" height="40"></p>');
 					arr.push('<p><a href="javascript:void(0)">'+mu.menu_name+'</a></p></li>');
 				}
 			}
@@ -146,7 +146,7 @@ var Menu={
 	getModule:function(fun_id,fun_name){
 		$(".leftmenutop").html(fun_name);
 		$("#menu").html("");
-		CommonUtils.invokeAsyncAction('/Sys/Login!getSubTwoLevelMenuList.do',{menuId:fun_id},function(reply){
+		CommonUtils.invokeAsyncAction(base+'/Sys/Login!getSubTwoLevelMenuList.do',{menuId:fun_id},function(reply){
 			var arr=new Array();
 			reply = reply.ret;
 			if( reply && reply!='undefined' ){
@@ -158,7 +158,7 @@ var Menu={
 					if(subMenu){
 						for(var m=0,n=subMenu.length;m<n;m++){
 							var smu = subMenu[m];
-							arr.push('<li class="L21"><a href="javascript:Menu.openTab('+smu.menu_id+',\''+smu.menu_name+'\',\''+smu.menu_url+'\')"><span>'+smu.menu_name+'</span></a></li>');
+							arr.push('<li class="L21"><a href="javascript:Menu.openTab('+smu.menu_id+',\''+smu.menu_name+'\',\''+base+smu.menu_url+'\')"><span>'+smu.menu_name+'</span></a></li>');
 						}
 					}
 					arr.push('</ul> ');
@@ -219,7 +219,7 @@ var Menu={
 	     var param ={};
 	     param["oldPwd"] = oldPwd;
 	     param["newPwd"] = newPwd;
-		CommonUtils.invokeAsyncAction('/Sys/Login!modifyPwd.do',param,function(reply){
+		CommonUtils.invokeAsyncAction(base+'/Sys/Login!modifyPwd.do',param,function(reply){
 			if((reply || '') !=''){
 				var code = reply._code;
                 if(code=='0'){	 
@@ -246,8 +246,8 @@ $(function(){
 	
 	});*/
 	$("#logout").click(function(){//退出
-		CommonUtils.invokeAsyncAction('/Sys/Login!loginOut.do',{},function(reply){
-           window.location.href='/admin/login';
+		CommonUtils.invokeAsyncAction(base+'/Sys/Login!loginOut.do',{},function(reply){
+           window.location.href=base+'/admin/login';
         })
 	});
 	$("#mdfPwd").click(function(){//修改密码
