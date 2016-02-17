@@ -4,14 +4,17 @@
   
   <resultMap id="BaseResultMap" type="com.flyrui.dao.pojo.bus.BusData" >
     <result column="data_id" property="data_id" jdbcType="VARCHAR" />
+    <result column="bus_id" property="bus_id" jdbcType="INTEGER" />
     <result column="batch_id" property="batch_id" jdbcType="VARCHAR" />
+    <result column="oper_user_id" property="oper_user_id" jdbcType="VARCHAR" />
+    <result column="user_code" property="user_code" jdbcType="VARCHAR" />
     <result column="create_date" property="create_date" jdbcType="TIMESTAMP" />
     <result column="col1" property="col1" jdbcType="VARCHAR" />
     <result column="col2" property="col2" jdbcType="VARCHAR" />
     <result column="col3" property="col3" jdbcType="VARCHAR" />
     <result column="col4" property="col4" jdbcType="VARCHAR" />
-    <result column="col5" property="col5" jdbcType="VARCHAR" />
-    <result column="col6" property="col6" jdbcType="VARCHAR" />
+    <result column="col5" property="col5" jdbcType="TIMESTAMP" />
+    <result column="col6" property="col6" jdbcType="TIMESTAMP" />
     <result column="col7" property="col7" jdbcType="VARCHAR" />
     <result column="col8" property="col8" jdbcType="VARCHAR" />
     <result column="col9" property="col9" jdbcType="VARCHAR" />
@@ -66,6 +69,9 @@
     <result column="data_col" property="data_col" jdbcType="VARCHAR" />
     <result column="rule_id" property="rule_id" jdbcType="INTEGER" />
     <result column="order_id" property="order_id" jdbcType="INTEGER" />
+    <result column="is_display" property="is_display" jdbcType="VARCHAR" />
+    <result column="col_index" property="col_index" jdbcType="INTEGER" />
+    <result column="is_export" property="is_export" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="BusTemplate" type="com.flyrui.dao.pojo.bus.BusTemplate" >
@@ -153,34 +159,62 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    data_id, batch_id, create_date, col1, col2, col3, col4, col5, col6, col7, col8, col9, 
+    data_id, batch_id, bus_id,oper_user_id,user_code,create_date, col1, col2, col3, col4, col5, col6, col7, col8, col9, 
     col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, 
     col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, 
     col34, col35, col36, col37, col38, col39, col40, col41, col42, col43, col44, col45, 
     col46, col47, col48, col49, col50
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.flyrui.dao.pojo.bus.BusDataCriteria" >
+  <select id="select" resultMap="BaseResultMap" parameterType="com.flyrui.dao.pojo.bus.BusData" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
+    
     <include refid="Base_Column_List" />
-    from bus_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    from bus_data a where 1=1  
+     <if test="data_id != null and data_id != ''" >
+        and data_id = #{data_id,jdbcType=VARCHAR}
+     </if>
+     <if test="batch_id != null and batch_id != ''" >
+       and batch_id = #{batch_id,jdbcType=VARCHAR}
+     </if>
+     <if test="user_code != null and user_code != '' and user_code !='%%' " >
+       and user_code like #{user_code,jdbcType=VARCHAR}
+     </if>  
+     <if test="col5_start !=null and col5_start != '' ">
+    	and a.col5 &gt;= str_to_date(#{col5_start,jdbcType=VARCHAR},'%Y-%m-%d')
+     </if>
+     <if test="col5_end !=null and col5_end != '' ">
+    	and a.col5 &lt;= str_to_date(#{col5_end,jdbcType=VARCHAR},'%Y-%m-%d')
+     </if> 
+     <if test="col6_start !=null and col6_start != '' ">
+    	and a.col6 &gt;= str_to_date(#{col6_start,jdbcType=VARCHAR},'%Y-%m-%d')
+     </if>
+     <if test="col6_end !=null and col6_end != '' ">
+    	and a.col6 &lt;= str_to_date(#{col6_end,jdbcType=VARCHAR},'%Y-%m-%d')
+     </if> 
+     <if test="col1 != null and col1 != '' and col1 !='%%'" >
+       and col1 like #{col1,jdbcType=VARCHAR}
+     </if>
+      and bus_id = #{bus_id,jdbcType=VARCHAR}    
+     order by batch_id,create_date
   </select>
-  <delete id="deleteByExample" parameterType="com.flyrui.dao.pojo.bus.BusDataCriteria" >
+  <delete id="delete" parameterType="com.flyrui.dao.pojo.bus.BusData" >
     delete from bus_data
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    where  1=1 
+     <if test="data_id != null and data_id !='' " >
+        and data_id = #{data_id,jdbcType=VARCHAR}
+     </if>
+     <if test="batch_id != null and batch_id !='' " >
+       and batch_id = #{batch_id,jdbcType=VARCHAR}
+     </if>
+     <if test="user_code != null and user_code !='' " >
+       and user_code = #{user_code,jdbcType=VARCHAR}
+     </if>
+     <if test="bus_id != null and bus_id !=''  " >
+       and bus_id = #{bus_id,jdbcType=VARCHAR}
+     </if>
   </delete>
   <insert id="insert" parameterType="com.flyrui.dao.pojo.bus.BusData" >
-    insert into bus_data (data_id, batch_id, create_date, 
+    insert into bus_data (data_id, bus_id,batch_id, oper_user_id,user_code,create_date, 
       col1, col2, col3, col4, 
       col5, col6, col7, col8, 
       col9, col10, col11, 
@@ -198,7 +232,8 @@
       col45, col46, col47, 
       col48, col49, col50
       )
-    values (#{data_id,jdbcType=VARCHAR}, #{batch_id,jdbcType=VARCHAR}, #{create_date,jdbcType=TIMESTAMP}, 
+    values (#{data_id,jdbcType=VARCHAR}, #{bus_id,jdbcType=INTEGER}, #{batch_id,jdbcType=VARCHAR},
+      #{oper_user_id,jdbcType=VARCHAR}, #{user_code,jdbcType=VARCHAR},#{create_date,jdbcType=TIMESTAMP}, 
       #{col1,jdbcType=VARCHAR}, #{col2,jdbcType=VARCHAR}, #{col3,jdbcType=VARCHAR}, #{col4,jdbcType=VARCHAR}, 
       #{col5,jdbcType=VARCHAR}, #{col6,jdbcType=VARCHAR}, #{col7,jdbcType=VARCHAR}, #{col8,jdbcType=VARCHAR}, 
       #{col9,jdbcType=VARCHAR}, #{col10,jdbcType=VARCHAR}, #{col11,jdbcType=VARCHAR}, 
@@ -776,76 +811,73 @@
   </update>
   
    <select id="queryBusTemplateItem" resultMap="BusTemplateItem" parameterType="com.flyrui.dao.pojo.bus.BusTemplateItem" >
-    	select item_id, template_id, item_name, item_type, data_col, rule_id, order_id
-    from bus_template_item
-    where 
+    	select item_id, template_id, item_name, item_type, data_col, rule_id, order_id,is_display,col_index,is_export
+    	   from bus_template_item
+    where 1=1 
     <if test="item_id != null" >
-        item_id = #{item_id,jdbcType=INTEGER},
+        and item_id = #{item_id,jdbcType=INTEGER}
       </if>
       <if test="template_id != null" >
-        template_id = #{template_id,jdbcType=VARCHAR},
+        and template_id = #{template_id,jdbcType=VARCHAR}
       </if>
       <if test="item_name != null" >
-        item_name = #{item_name,jdbcType=VARCHAR},
+        and item_name = #{item_name,jdbcType=VARCHAR}
       </if>
       <if test="item_type != null" >
-        item_type = #{item_type,jdbcType=VARCHAR},
+        and item_type = #{item_type,jdbcType=VARCHAR}
       </if>
       <if test="data_col != null" >
-        data_col = #{data_col,jdbcType=VARCHAR},
+        and data_col = #{data_col,jdbcType=VARCHAR}
       </if>
       <if test="rule_id != null" >
-        rule_id = #{rule_id,jdbcType=INTEGER},
+        and rule_id = #{rule_id,jdbcType=INTEGER}
       </if>
       <if test="order_id != null" >
-        order_id = #{order_id,jdbcType=INTEGER},
+        and order_id = #{order_id,jdbcType=INTEGER
       </if>
+      order by order_id
   </select>    
  
   <select id="queryBusRule" resultMap="BusRule" parameterType="com.flyrui.dao.pojo.bus.BusRule" >
     select
     	rule_id, rule_name, rule_type, rule_content, create_date
     from bus_rule
-    where 
+    where 1=1 
    	  <if test="rule_id != null" >
-        rule_id = #{rule_id,jdbcType=INTEGER},
+        and rule_id = #{rule_id,jdbcType=INTEGER} 
       </if>
       <if test="rule_name != null" >
-        rule_name = #{rule_name,jdbcType=VARCHAR},
+        and rule_name = #{rule_name,jdbcType=VARCHAR} 
       </if>
       <if test="rule_type != null" >
-        rule_type = #{rule_type,jdbcType=VARCHAR},
+        and rule_type = #{rule_type,jdbcType=VARCHAR}
       </if>
       <if test="rule_content != null" >
-        rule_content = #{rule_content,jdbcType=VARCHAR},
+        and rule_content = #{rule_content,jdbcType=VARCHAR}
       </if>
       <if test="create_date != null" >
-        create_date = #{create_date,jdbcType=TIMESTAMP},
+        and create_date = #{create_date,jdbcType=TIMESTAMP}
       </if>
   </select>
-  
-  
-  <sql id="Base_Column_List" >
-    
-  </sql>
+   
   <select id="queryBusInfo" resultMap="BusInfo" parameterType="com.flyrui.dao.pojo.bus.BusInfo" >
     select
     	bus_id, bus_name, imp_tmp, exp_tmp, create_date
-    from bus_info where 
+      from bus_info where 1=1 
    	  <if test="bus_id != null" >
-        bus_id = #{bus_id,jdbcType=INTEGER},
+        and bus_id = #{bus_id,jdbcType=INTEGER}
       </if>
       <if test="bus_name != null" >
-        bus_name = #{bus_name,jdbcType=VARCHAR},
+        and bus_name = #{bus_name,jdbcType=VARCHAR}
       </if>
       <if test="imp_tmp != null" >
-        imp_tmp = #{imp_tmp,jdbcType=VARCHAR},
+        and imp_tmp = #{imp_tmp,jdbcType=VARCHAR}
       </if>
       <if test="exp_tmp != null" >
-        exp_tmp = #{exp_tmp,jdbcType=VARCHAR},
+        and exp_tmp = #{exp_tmp,jdbcType=VARCHAR}
       </if>
       <if test="create_date != null" >
-        create_date = #{create_date,jdbcType=TIMESTAMP},
+        and create_date = #{create_date,jdbcType=TIMESTAMP}
       </if>
   </select>
   
@@ -853,27 +885,27 @@
   <select id="queryBusTemplate" resultMap="BusTemplate" parameterType="com.flyrui.dao.pojo.bus.BusTemplate" >
     select 
     	template_id, template_name, template_type, data_type, sheet_number, start_row, create_date
-    from bus_template where 
+    from bus_template where 1=1
   	<if test="template_id != null" >
-        template_id = #{template_id,jdbcType=VARCHAR},
+        and template_id = #{template_id,jdbcType=VARCHAR}
     </if>
     <if test="template_name != null" >
-      template_name = #{template_name,jdbcType=VARCHAR},
+      and template_name = #{template_name,jdbcType=VARCHAR}
     </if>
     <if test="template_type != null" >
-      template_type = #{template_type,jdbcType=VARCHAR},
+      and template_type = #{template_type,jdbcType=VARCHAR}
     </if>
     <if test="data_type != null" >
-      data_type = #{data_type,jdbcType=VARCHAR},
+      and data_type = #{data_type,jdbcType=VARCHAR}
     </if>
     <if test="sheet_number != null" >
-      sheet_number = #{sheet_number,jdbcType=INTEGER},
+      and sheet_number = #{sheet_number,jdbcType=INTEGER}
     </if>
     <if test="start_row != null" >
-      start_row = #{start_row,jdbcType=INTEGER},
+      and start_row = #{start_row,jdbcType=INTEGER}
     </if>
     <if test="create_date != null" >
-      create_date = #{create_date,jdbcType=TIMESTAMP},
+      and create_date = #{create_date,jdbcType=TIMESTAMP}
     </if>
   </select>
   

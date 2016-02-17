@@ -5,8 +5,14 @@ import java.util.Date;
 
 public class BusData implements Serializable {
     private String data_id;
+    
+    private String bus_id;
 
     private String batch_id;
+    
+    private String oper_user_id;
+    
+    private String user_code;
 
     private Date create_date;
 
@@ -18,9 +24,9 @@ public class BusData implements Serializable {
 
     private String col4;
 
-    private String col5;
+    private Date col5;
 
-    private String col6;
+    private Date col6;
 
     private String col7;
 
@@ -109,6 +115,14 @@ public class BusData implements Serializable {
     private String col49;
 
     private String col50;
+    
+    private String col5_start;
+    
+    private String col5_end;
+    
+    private String col6_start;
+    
+    private String col6_end;
 
     private static final long serialVersionUID = 1L;
 
@@ -168,20 +182,20 @@ public class BusData implements Serializable {
         this.col4 = col4 == null ? null : col4.trim();
     }
 
-    public String getCol5() {
+    public Date getCol5() {
         return col5;
     }
 
-    public void setCol5(String col5) {
-        this.col5 = col5 == null ? null : col5.trim();
+    public void setCol5(Date col5) {
+        this.col5 = col5 ;
     }
 
-    public String getCol6() {
+    public Date getCol6() {
         return col6;
     }
 
-    public void setCol6(String col6) {
-        this.col6 = col6 == null ? null : col6.trim();
+    public void setCol6(Date col6) {
+        this.col6 = col6 ;
     }
 
     public String getCol7() {
@@ -535,4 +549,60 @@ public class BusData implements Serializable {
     public void setCol50(String col50) {
         this.col50 = col50 == null ? null : col50.trim();
     }
+
+	public String getBus_id() {
+		return bus_id;
+	}
+
+	public void setBus_id(String busId) {
+		this.bus_id = busId == null ? null : busId.trim(); 
+	}
+
+	public String getOper_user_id() {
+		return oper_user_id;
+	}
+
+	public void setOper_user_id(String operUserId) {
+		oper_user_id = operUserId;
+	}
+
+	public String getUser_code() {
+		return user_code;
+	}
+
+	public void setUser_code(String userCode) {
+		user_code = userCode;
+	}
+
+	public String getCol5_start() {
+		return col5_start;
+	}
+
+	public void setCol5_start(String col5Start) {
+		col5_start = col5Start;
+	}
+
+	public String getCol5_end() {
+		return col5_end;
+	}
+
+	public void setCol5_end(String col5End) {
+		col5_end = col5End;
+	}
+
+	public String getCol6_start() {
+		return col6_start;
+	}
+
+	public void setCol6_start(String col6Start) {
+		col6_start = col6Start;
+	}
+
+	public String getCol6_end() {
+		return col6_end;
+	}
+
+	public void setCol6_end(String col6End) {
+		col6_end = col6End;
+	}
 }

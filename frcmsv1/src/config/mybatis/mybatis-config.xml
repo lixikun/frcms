@@ -51,5 +51,6 @@
             <mapper resource="config/mybatis/sqlMap/mysql/FrContentTxtMapper.xml"/>
             <mapper resource="config/mybatis/sqlMap/mysql/FrContentExtMapper.xml"/>
             <mapper resource="config/mybatis/sqlMap/mysql/CommonMapper.xml"/>
+            <mapper resource="config/mybatis/sqlMap/mysql/BusDataMapper.xml"/>
         </mappers>  
     </configuration>   

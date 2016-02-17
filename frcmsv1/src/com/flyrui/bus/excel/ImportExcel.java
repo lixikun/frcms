@@ -9,8 +9,10 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.flyrui.bus.service.BusService;
 import com.flyrui.common.SpringBeans;
-import com.flyrui.common.excel.ExcelAnnotation;
+import com.flyrui.dao.pojo.bus.BusTemplate;
 import com.flyrui.dao.pojo.bus.BusTemplateItem;
 
 
@@ -59,7 +61,7 @@ public class ImportExcel<T> {
 		return errNum;
 	}
 	
-	public Collection<T> importExcel(File file, String... pattern) {
+	public Collection<T> importExcel(File file, Map<String,String> param) {
 		Collection<T> dist = new ArrayList();
 		try {
 			/**
@@ -75,25 +77,61 @@ public class ImportExcel<T> {
 			busTemplateItem.setTemplate_id(templateId);
 			List<BusTemplateItem> busTemplateItemList = busService.queryBusTemplateItem(busTemplateItem);
 			
-			//查询模板信息，是否是按列号还是
+			//查询模板信息，是否是按列号还是字段名称
+			BusTemplate busTemplate = new BusTemplate();
+			busTemplate.setTemplate_id(templateId);
+			List<BusTemplate> busTemplateList = busService.queryBusTemplate(busTemplate);
+			if(busTemplateList!=null && busTemplateList.size()>0){
+				busTemplate = busTemplateList.get(0);
+			}
+			String dataType = busTemplate.getData_type();
+			
+			Map<String,Method> fieldmap = new LinkedHashMap<String,Method>();
+			Map<String,BusTemplateItem> fieldTemplateItemMap = new LinkedHashMap<String,BusTemplateItem>();
+			Map<String,Method> commonFieldmap = new LinkedHashMap<String,Method>();
+			
 			//循环读取所有字段
 			for (int i = 0; i < filed.length; i++) {
 				Field f = filed[i];
-				// 得到单个字段上的Annotation
-				ExcelAnnotation exa = f.getAnnotation(ExcelAnnotation.class);
-				// 如果标识了Annotationd的话
-				if (exa != null) {
-					// 构造设置了Annotation的字段的Setter方法
-					String fieldname = f.getName();
+				
+				String fieldname = f.getName();
+				busTemplateItem = checkExist(fieldname,busTemplateItemList);
+				
+			
+				if(busTemplateItem!=null&& busTemplateItem.getCol_index()!=-1){
+					
 					String setMethodName = "set"
-							+ fieldname.substring(0, 1).toUpperCase()
-							+ fieldname.substring(1);
-					// 构造调用的method，
+						+ fieldname.substring(0, 1).toUpperCase()
+						+ fieldname.substring(1);
+					
+					//构造调用的method，
 					Method setMethod = clazz.getMethod(setMethodName,
-							new Class[] { f.getType() });
-					// 将这个method以Annotaion的名字为key来存入。
-					fieldmap.put(exa.exportName(), setMethod);
+						new Class[] { f.getType() });
+					
+					if("0".equals(dataType)){
+						fieldmap.put(busTemplateItem.getCol_index()+"", setMethod);
+						fieldTemplateItemMap.put(busTemplateItem.getCol_index()+"", busTemplateItem);
+					}else{
+						fieldmap.put(busTemplateItem.getItem_name(), setMethod);
+						fieldTemplateItemMap.put(busTemplateItem.getItem_name(), busTemplateItem);
+					}
+					
 				}
+				
+				//设置公共参数
+				if(param!=null && param.containsKey(fieldname)){
+					String setMethodName = "set"
+						+ fieldname.substring(0, 1).toUpperCase()
+						+ fieldname.substring(1);
+					
+					//构造调用的method，
+					Method setMethod = clazz.getMethod(setMethodName,
+						new Class[] { f.getType() });
+					
+					commonFieldmap.put(fieldname, setMethod);
+				}
+				
+				
 			}
 			/**
 			 * excel的解析开始
@@ -113,58 +151,71 @@ public class ImportExcel<T> {
 			
 			// 获取sheet数量
 			int numOfSheet = book.getNumberOfSheets();
-			// 循环获取sheet中的数据
-			for (int n = 0; n < numOfSheet; n++) {
-				Sheet sheet = book.getSheetAt(n);
+			int sheetNumber = busTemplate.getSheet_number();
+			
+			if(sheetNumber>numOfSheet-1){
+				this.errMessage+="模板配置错误，未找到要读取的sheet页数"+sheetNumber+"<br/>";
+				return dist;
+			}
+			
+				Sheet sheet = book.getSheetAt(sheetNumber);
 				Iterator<Row> row = sheet.rowIterator();
 				// 判断sheet是否为空
 				if (sheet.getLastRowNum() < 1) {
-					continue;
+					this.errMessage+="要读取的sheet页"+sheetNumber+"中数据为空<br/>";
+					return dist;
 				}
-				/**
-				 * 标题解析
-				 */
-				// 得到第一行，也就是标题行
-				Row title = (Row) row.next();
-				// 得到第一行的所有列
-				Iterator<Cell> cellTitle = title.cellIterator();
-				// 将标题的文字内容放入到一个map中。
+				
+				int startRow = busTemplate.getStart_row();
+				
+				//如果不是从第一行开始读取，则循环跳出
+				if(startRow>0){
+					while(startRow>0){
+						row.next();
+						startRow--;
+					}
+				}
+				
+				//将标题的文字内容放入到一个map中
 				Map titlemap = new HashMap();
 				String tmpContent = "";
-				// 从标题第一列开始
-				int i = 0;
-				// 循环标题所有的列
-				while (cellTitle.hasNext()) {
-					Cell cell = (Cell) cellTitle.next();
-					String value = cell.getStringCellValue();
-					titlemap.put(i, value);
-					i = i + 1;
+				if(!"0".equals(dataType)){
+					/**
+					 * 标题解析
+					 */
+					//得到第一行，也就是标题行
+					Row title = (Row) row.next();
+					// 得到第一行的所有列
+					Iterator<Cell> cellTitle = title.cellIterator();					
+					
+					// 从标题第一列开始
+					int i = 0;
+					// 循环标题所有的列
+					while (cellTitle.hasNext()) {
+						Cell cell = (Cell) cellTitle.next();
+						String value = cell.getStringCellValue();
+						titlemap.put(i, value);
+						i = i + 1;
+					}
 				}
+				
 				/**
 				 * 解析内容行
 				 */
 				// 用来格式化日期的DateFormat
-				SimpleDateFormat sf;
-				// 是不是走这里
-				if (pattern.length < 1) {
-					sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				} else{
-					sf = new SimpleDateFormat(pattern[0]);
+				
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				if(param!=null && param.get("DATE_FORMAT")!=null){
+					sf = new SimpleDateFormat(param.get("DATE_FORMAT"));
 				}
+				
 				while (row.hasNext()) {
 					Row rown = (Row) row.next();
 					try {
 						// 标题下的第一行
 						
 						Cell cell = rown.getCell((short) 0);
-						// 防止读取空行.
-//						if (cell == null || cell.toString() == null|| "".equals(cell.toString())) {
-//							continue;
-//						}//这样判断，第一列成了必填,干脆不判断了，各自的具体导入类中控制吧-shi.lianghui-2013.1.25
-						// 行的所有列
-						// Iterator<HSSFCell> cellbody =
-						// rown.getLastCellNum().cellIterator();
-						// 得到传入类的实例
+						
 						T tObject = clazz.newInstance();
 						int k = 0;
 						// 遍历一行的列
@@ -172,13 +223,21 @@ public class ImportExcel<T> {
 						// while (cellbody.hasNext()) {
 						for (int j = 0; j < rown.getLastCellNum() + 1; j++) {
 							cell = rown.getCell((short) j);
-							// 这里得到此列的对应的标题
 							String titleString = (String) titlemap.get(k);
+							
+							//按行来获取
+							if("0".equals(dataType)){
+								titleString = j+"";
+							}
+							// 这里得到此列的对应的标题
+							
 							
 							// 如果这一列的标题和类中的某一列的Annotation相同，那么则调用此类的的set方法，进行设值
 							if (fieldmap.containsKey(titleString)&& cell != null) {
 								
 								Method setMethod = (Method) fieldmap.get(titleString);
+								BusTemplateItem tempBusTemplateItem = fieldTemplateItemMap.get(titleString);
+								
 								// 得到setter方法的参数
 								Type[] ts = setMethod.getGenericParameterTypes();
 								// 只要一个参数
@@ -193,21 +252,36 @@ public class ImportExcel<T> {
 								}
 							
  								if (xclass.equals("class java.lang.String")) {
-									if (evaluator.evaluateInCell(cell).getCellType() == Cell.CELL_TYPE_NUMERIC) {
-										if (cell.toString().endsWith(".0")) {
-											tmpContent = cell.toString().substring(0,cell.toString().indexOf(".0"));
-										} else {
-											if (null != cell.toString()&& cell.toString().indexOf(".") != -1&& cell.toString().indexOf("E") != -1) {
-												DecimalFormat df = new DecimalFormat();
-												tmpContent = df.parse(cell.toString()).toString();
-											}else {
-												tmpContent=cell.toString();
-											} 
-										}
-									} else {
-										tmpContent = cell.toString();
-									}
-									setMethod.invoke(tObject, tmpContent);
+ 									if("DAT".equals(tempBusTemplateItem.getItem_type())){
+ 										// 时间转换
+ 										if(cell.getCellType()==Cell.CELL_TYPE_NUMERIC)
+ 									      {
+ 										      if(DateUtil.isCellDateFormatted(cell))
+ 										      {
+ 										    	  double d=cell.getNumericCellValue();
+ 										    	  Date date = DateUtil.getJavaDate(d);
+ 										    	  setMethod.invoke(tObject,sf.format(date));
+ 										      }
+ 									      }else if (cell.getCellType()==Cell.CELL_TYPE_STRING) {
+ 											  setMethod.invoke(tObject, cell.toString());
+ 									      }
+ 									}else{
+ 										if (evaluator.evaluateInCell(cell).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+ 											if (cell.toString().endsWith(".0")) {
+ 												tmpContent = cell.toString().substring(0,cell.toString().indexOf(".0"));
+ 											} else {
+ 												if (null != cell.toString()&& cell.toString().indexOf(".") != -1&& cell.toString().indexOf("E") != -1) {
+ 													DecimalFormat df = new DecimalFormat();
+ 													tmpContent = df.parse(cell.toString()).toString();
+ 												}else {
+ 													tmpContent=cell.toString();
+ 												} 
+ 											}
+ 										} else {
+ 											tmpContent = cell.toString();
+ 										}
+ 										setMethod.invoke(tObject, tmpContent);
+ 									}
 
 								} else if (xclass.equals("class java.util.Date")) {
 									
@@ -247,6 +321,10 @@ public class ImportExcel<T> {
 							// 下一列
 							k = k + 1;
 						}
+						
+						//设置公共信息
+						setCommonInfo(tObject,commonFieldmap,param);
+						
 						if (flag) {
 							dist.add(tObject);
 						}
@@ -255,11 +333,44 @@ public class ImportExcel<T> {
 						this.errNum++;
 					}
 				}
-			}
+			
 		} catch (Exception e) {
 			this.errMessage+=e.getMessage().toString()+"<br/>";
 			return dist;
 		}
 		return dist;
+	}
+	
+	public BusTemplateItem checkExist(String colName ,List<BusTemplateItem> busTemplateItemList){
+		BusTemplateItem retBusTemplateItem = null;
+		for(BusTemplateItem busTemplateItem: busTemplateItemList){
+			if(colName.equals(busTemplateItem.getData_col())){
+				retBusTemplateItem = busTemplateItem;
+				break;
+			}
+		}
+		return retBusTemplateItem;
+	}
+	
+	public void setCommonInfo(T t,Map<String,Method> commonFieldmap,Map<String,String> param){
+		Iterator<String> iterator = commonFieldmap.keySet().iterator();
+		while(iterator.hasNext()){
+			String key = iterator.next();
+			Method method = commonFieldmap.get(key);
+			Type[] ts = method.getGenericParameterTypes();
+			// 只要一个参数
+			String xclass = ts[0].toString();
+			String value = param.get(key);
+			try {
+				if (xclass.equals("class java.lang.Integer")) {
+					method.invoke(t, new Integer(value));
+				}else{
+					method.invoke(t, value);
+				}
+				
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
 	}
 }

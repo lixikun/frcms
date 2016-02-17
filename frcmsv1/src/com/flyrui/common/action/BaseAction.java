@@ -26,6 +26,8 @@ public class BaseAction extends ActionSupport{
 	public InputStream inputStream;
 	
 	public String excelName;
+	
+	public String actionType;
 	/**
 	 * 公共参数
 	 */
@@ -149,7 +151,11 @@ public class BaseAction extends ActionSupport{
 		User user = getLoginUserInfo();
 		String userCode = "";
 		if( user !=null ){
-			userCode = user.getUser_code();
+			if("BUS".equals(actionType)){
+				userCode = user.getId_card();
+			}else{
+				userCode = user.getUser_code();
+			}
 		}		
 		return userCode;
 	}

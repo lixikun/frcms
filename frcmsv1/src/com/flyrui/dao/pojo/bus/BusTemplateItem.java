@@ -16,6 +16,12 @@ public class BusTemplateItem implements Serializable {
     private Integer rule_id;
 
     private Integer order_id;
+    
+    private String is_display;
+    
+    private Integer col_index;
+    
+    private String is_export;
 
     private static final long serialVersionUID = 1L;
 
@@ -74,4 +80,30 @@ public class BusTemplateItem implements Serializable {
     public void setOrder_id(Integer order_id) {
         this.order_id = order_id;
     }
+
+	public String getIs_display() {
+		return is_display;
+	}
+
+	public void setIs_display(String isDisplay) {
+		is_display = isDisplay;
+	}
+
+	public Integer getCol_index() {
+		return col_index;
+	}
+
+	public void setCol_index(Integer colIndex) {
+		col_index = colIndex;
+	}
+
+	public String getIs_export() {
+		return is_export;
+	}
+
+	public void setIs_export(String isExport) {
+		is_export = isExport;
+	}
+    
+    
 }
