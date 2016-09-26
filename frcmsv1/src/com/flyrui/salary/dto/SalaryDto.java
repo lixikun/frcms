@@ -224,10 +224,10 @@ public class SalaryDto implements Serializable {
 	@ExcelAnnotation(exportName="预扣职业年金")
 	private String other13;
 	
-	@ExcelAnnotation(exportName = "其他4")
+	@ExcelAnnotation(exportName = "补发工资")
 	private String other14;
 	
-	@ExcelAnnotation(exportName = "其他5")
+	@ExcelAnnotation(exportName = "郑州市文明奖")
 	private String other15;
 	
 	@ExcelAnnotation(exportName = "其他6")

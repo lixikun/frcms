@@ -85,7 +85,11 @@ public class ImportExcel<T> {
 			 */
 			// 默认是03版Excel
 			boolean isExcel2003 = true;
-			if (file.getName().matches("^.+\\.(?i)(xlsx)$")) {// 07版Excel
+			String fileName =file.getName();
+			if(pattern.length>0){
+				fileName = pattern[0];
+			}
+			if (fileName.matches("^.+\\.(?i)(xlsx)$")) {// 07版Excel
 				isExcel2003 = false;
 			}
 			// 将传入的File构造为FileInputStream;
@@ -131,10 +135,10 @@ public class ImportExcel<T> {
 				// 用来格式化日期的DateFormat
 				SimpleDateFormat sf;
 				// 是不是走这里
-				if (pattern.length < 1) {
+				if (pattern.length < 2) {
 					sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				} else{
-					sf = new SimpleDateFormat(pattern[0]);
+					sf = new SimpleDateFormat(pattern[1]);
 				}
 				while (row.hasNext()) {
 					Row rown = (Row) row.next();

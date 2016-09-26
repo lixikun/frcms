@@ -135,7 +135,7 @@ public class SalaryAction extends BaseAction {
     	SalaryService salaryService = getSalaryService();    	
     	ImportExcel<SalaryDto> importExcel = new ImportExcel(
     			SalaryDto.class);
-    	List<SalaryDto> resultList = (ArrayList) importExcel.importExcel(upload);
+    	List<SalaryDto> resultList = (ArrayList) importExcel.importExcel(upload,fileName);
     	System.out.println("共转化为List的行数为：" + resultList.size());
     	Map retMap = new HashMap();
     	retMap.put("transformErrNum", importExcel.getErrNum());

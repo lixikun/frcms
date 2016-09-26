@@ -58,6 +58,7 @@
 				<th field="house_allownace" width="60px">住房补贴</th>
 				<th field="other_allowance" width="60px">其他补贴</th>
 				<th field="salary_little_sum" width="60px">工资小计</th>
+				<th field="other14" width="60px">补发工资</th>
 				<th field="job_allowance" width="60px">岗位津贴</th>
 				<!--  <th field="re_job_allowance" >补发岗位津贴</th> -->
 				<th field="oil_allowance" width="60px">粮油蛋补</th>
@@ -66,6 +67,7 @@
 				<th field="cqj" width="50px">出勤奖</th>
 				<th field="jxj" width="60px">平安建设奖</th>
 				<th field="fx_allowance" width="60px">防汛津贴</th>
+				<th field="other15" width="60px">郑州市文明奖</th>
 				<th field="jwf" width="60px">降温费</th>
 				<th field="yd_allowance" width="50px">福利</th>
 				<th field="other2" width="90px">劳务酬金及奖金</th>

@@ -84,6 +84,9 @@ public class BusSalaryLevel implements Serializable {
     @ExcelAnnotation(exportName="工资小计")
     private Float salary_little_sum;
     
+    @ExcelAnnotation(exportName="补发工资")
+    private Float other14;
+    
     @ExcelAnnotation(exportName="岗位津贴")
     private Float job_allowance;    
    
@@ -106,6 +109,9 @@ public class BusSalaryLevel implements Serializable {
     
     @ExcelAnnotation(exportName = "防汛津贴")
     private Float fx_allowance;
+    
+    @ExcelAnnotation(exportName = "郑州市文明奖")
+    private Float other15;
     
     @ExcelAnnotation(exportName="降温费")
     private Float jwf;
@@ -224,9 +230,9 @@ public class BusSalaryLevel implements Serializable {
     
    
     
-    private Float other14;
     
-    private Float other15;
+    
+    
     
     private String other16;
     
