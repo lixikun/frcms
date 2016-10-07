@@ -20,6 +20,7 @@
 <script type="text/javascript" src="<%=baseUri %>/public/common/ress/js/jquery.json-2.4.min.js"></script>
 <script type="text/javascript" src="<%=baseUri %>/public/common/ress/js/json2.js"></script>
 <script type="text/javascript" src="<%=baseUri %>/public/common/ress/js/CommonUtils.js"></script>
+<script type="text/javascript" src="<%=baseUri %>/public/artTemplate/template.js"></script>
 <script language="javascript" type="text/javascript" >
 	var base="<%=baseUri%>";
 </script>

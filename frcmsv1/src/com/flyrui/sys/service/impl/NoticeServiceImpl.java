@@ -27,7 +27,7 @@ public class NoticeServiceImpl extends BaseService<TbNotice> implements NoticeSe
 	
 	public Notice queryNoticeDetail(TbNotice notice){
 		Notice retNotice = null;
-		List<Notice> retList = (List<Notice>)baseDao.selectList(nameSpace+".selectDetail", notice);
+		List<Notice> retList =  baseDao.selectList(nameSpace+".selectDetail", notice);
 		if(retList!=null && retList.size()>0){
 			retNotice = retList.get(0);
 		}
@@ -72,7 +72,7 @@ public class NoticeServiceImpl extends BaseService<TbNotice> implements NoticeSe
 	}
 	
 	public List<Notice> queryEffNoticeList(Notice notice,int pageNo,int pageSize){
-		return (List<Notice>)baseDao.selectList(nameSpace+".selectEffNotice", notice);
+		return  baseDao.selectList(nameSpace+".selectEffNotice", notice);
 	}
 	
 }

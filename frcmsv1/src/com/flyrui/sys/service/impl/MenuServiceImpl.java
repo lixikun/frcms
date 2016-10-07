@@ -32,7 +32,7 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
 	 * @return
 	 */
     public List<TbMenu> getRootMenuListByRole(String roleId){
-        List<TbMenu> listMenu= (List<TbMenu>)baseDao.selectList(SQLMapConstant.GET_ROOT_MENULIST_BY_ROLE, roleId);             
+        List<TbMenu> listMenu=  baseDao.selectList(SQLMapConstant.GET_ROOT_MENULIST_BY_ROLE, roleId);             
         return listMenu;
     }   
  
@@ -48,7 +48,7 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
      * Jul 6, 2012
      */
     public List<TbMenu> getSubMenuListByUpId(Map<String,String> param){
-    	List<TbMenu> listMenu = (List<TbMenu>)baseDao.selectList(SQLMapConstant.GET_SUBMENU_LIST_BY_UPID, param);             
+    	List<TbMenu> listMenu =  baseDao.selectList(SQLMapConstant.GET_SUBMENU_LIST_BY_UPID, param);             
         return listMenu;
     }
     
@@ -209,7 +209,7 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
     * Feb 11, 2014
     */
    public List<TbMenu> getNoSelectRootMenuByRole(String roleId){
-	   List<TbMenu> retList = (List<TbMenu>)baseDao.selectList(getNameSpace()+".getNoSelectRootMenuByRole",roleId);             
+	   List<TbMenu> retList =  baseDao.selectList(getNameSpace()+".getNoSelectRootMenuByRole",roleId);             
        return retList;
    }
    
@@ -224,7 +224,7 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
     * Feb 11, 2014
     */
    public List<TbMenu> getNoSelectSubMenuListByUpId(Map map){
-	   List<TbMenu> retList = (List<TbMenu>)baseDao.selectList(getNameSpace()+".getNoSelectSubMenuListByUpId",map);             
+	   List<TbMenu> retList =  baseDao.selectList(getNameSpace()+".getNoSelectSubMenuListByUpId",map);             
        return retList;
    }
    

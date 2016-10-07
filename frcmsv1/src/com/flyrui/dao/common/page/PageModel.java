@@ -3,13 +3,14 @@ package com.flyrui.dao.common.page;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageModel {
+public class PageModel <T>{
 	private int total = 0;
-	private List rows = new ArrayList();
+	private List<T> rows = new ArrayList<T>();
 	private int pageSize = 20;
 	private int pageIndex = 1;
 	private int startIndex = 0;
 	private int endIndex = 0;
+	private int pageCount=0;
 	
 	public int getTotal() {
 		return total;
@@ -21,12 +22,20 @@ public class PageModel {
 		if(endIndex>total){
 			endIndex = total+1;
 		}
+		//计算页数
+		if(total>0){
+			if(total%pageSize == 0){
+				pageCount = total/pageSize;
+			}else{
+				pageCount = total/pageSize+1;
+			}
+		}
 	}
-	public List getRows() {
+	public List<T> getRows() {
 		return rows;
 	}
 	public void setRows(List rows) {
-		this.rows = rows;
+		this.rows = rows;		
 	}
 	public int getPageSize() {
 		return pageSize;

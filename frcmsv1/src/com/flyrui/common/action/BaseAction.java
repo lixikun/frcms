@@ -153,6 +153,8 @@ public class BaseAction extends ActionSupport{
 		if( user !=null ){
 			if("BUS".equals(actionType)){
 				userCode = user.getId_card();
+			}if("BANK".equals(actionType)){
+				userCode = user.getBank_account();
 			}else{
 				userCode = user.getUser_code();
 			}

@@ -86,6 +86,12 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
     </bean>  
     
+    <!-- 定义批量处理操作类,集成自org.mybatis.spring.SqlSessionTemplate   -->
+    <bean id="baseBatchDAO" class="com.flyrui.dao.common.BaseDAO" >  
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+        <constructor-arg name="executorType" value="BATCH"></constructor-arg>
+    </bean>  
+    
     <!-- action 获取bean配置， -->
     <bean id="springBeans" class="com.flyrui.common.SpringBeans"></bean>   
 	

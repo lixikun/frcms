@@ -29,7 +29,7 @@ public class PaginationInterceptor implements Interceptor{
 	public Object intercept(Invocation invocation) throws Throwable {
 		StatementHandler statementHandler = (StatementHandler)invocation.getTarget();
 		BoundSql boundSql = statementHandler.getBoundSql();
-		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler);
+		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler,null,null,null);
 		RowBounds rowBounds = (RowBounds)metaStatementHandler.getValue("delegate.rowBounds");
 		if(rowBounds == null || rowBounds == RowBounds.DEFAULT){
 			return invocation.proceed();

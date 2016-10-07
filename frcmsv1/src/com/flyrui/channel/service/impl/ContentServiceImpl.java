@@ -27,7 +27,7 @@ public class ContentServiceImpl extends BaseService<FrContent> implements Conten
     * @return
     */
 	public List<FrContent> queryContentInfoList(FrContent frContent) {
-		return (List<FrContent>)super.queryById("queryAllWithExt",frContent);
+		return super.queryById("queryAllWithExt",frContent);
 	}
 	
 	public PageModel getPagerListByCon(FrContent frContent,int pageNo,int pageSize){

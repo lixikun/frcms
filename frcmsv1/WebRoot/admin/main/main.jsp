@@ -19,7 +19,7 @@
 <script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/jquery.json-2.4.min.js"></script>
 <script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/json2.js"></script>
 <script type="text/javascript" src="<%=baseUri%>/public/common/ress/js/CommonUtils.js"></script>
-<script type="text/javascript" src="js/frame_menu.js"></script>
+<script type="text/javascript" src="<%=baseUri%>/admin/main/js/frame_menu.js"></script>
 </head>
 <script language="javascript" type="text/javascript" >
 	var base="<%=baseUri%>";
@@ -89,7 +89,7 @@ function correctPNG() // correctly handle PNG transparency in Win IE 5.5 & 6.
     </div>
     <div class="centerline"><a id="center_line" href="javascript:void(0)"></a></div>
   	<div class="main_div">
-    	<iframe id="frame_page" frameborder="0" src="iframe.jsp" style="width:100%; height:100%; border:none;"></iframe>
+    	<iframe id="frame_page" frameborder="0" src="<%=baseUri%>/admin/main/iframe.jsp" style="width:100%; height:100%; border:none;"></iframe>
   	</div>
 </div>
 <div style="display:none" id="pwd_win">

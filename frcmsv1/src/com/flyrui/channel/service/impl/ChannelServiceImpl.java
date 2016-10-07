@@ -25,7 +25,7 @@ public class ChannelServiceImpl extends BaseService<FrChannel> implements Channe
     * @return
     */
 	public List<FrChannel> queryChannelInfoList(FrChannel frChannel) {
-		return (List<FrChannel>)super.queryById("queryAllWithExt",frChannel);
+		return super.queryById("queryAllWithExt",frChannel);
 	}
 	
 	public PageModel getPagerListByCon(FrChannel frChannel,int pageNo,int pageSize){

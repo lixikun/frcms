@@ -51,7 +51,7 @@ public class LoginServiceImpl  extends BaseService implements LoginService
             //校验成功
             if(tPwd!=null && tPwd.equals(pwd)){
                 //获取用户的所属角色
-                List<TbRole> roleList = (List<TbRole>)baseDao.selectList(SQLMapConstant.QUERY_ROLE_INFO_BY_USER_ID, user);                
+                List<TbRole> roleList = baseDao.selectList(SQLMapConstant.QUERY_ROLE_INFO_BY_USER_ID, user);                
                 user.setRoleList(roleList);
                 if(roleList!=null&roleList.size()>0){
                     //有角色信息,则写入到session中,记录登录信息

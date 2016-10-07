@@ -26,7 +26,7 @@ public class SalaryServiceImpl extends BaseService<BusSalary> implements SalaryS
    }
 
    public List<BusSalary> getSumListByCon(BusSalary busSalary){
-	   return (List<BusSalary>)baseDao.selectList(getNameSpace()+".selectSum",busSalary);
+	   return baseDao.selectList(getNameSpace()+".selectSum",busSalary);
    }
    public int deleteByids(String ids) {
 	   int retV = 0;
@@ -48,6 +48,6 @@ public class SalaryServiceImpl extends BaseService<BusSalary> implements SalaryS
 	   return getPagerList(busSalary,getNameSpace()+".selectSumLevel",pageNo,pageSize);
    }
    public List<BusSalaryLevel> getLevleListByCon(BusSalary busSalary){
-	   return (List<BusSalaryLevel>)baseDao.selectList(getNameSpace()+".selectSumLevel", busSalary);	
+	   return baseDao.selectList(getNameSpace()+".selectSumLevel", busSalary);	
    }	
 }
