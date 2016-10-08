@@ -24,7 +24,7 @@
       body, td, th
       {
           font-size: 12px;
-      }
+      }      
       .tdp
       {
           border-bottom: 1 solid #000000;
@@ -66,11 +66,10 @@
           </td>
       </tr>
   </table>
-  <table width="90%" border="1" align="center" cellpadding="2" cellspacing="0" bordercolor="#000000"
-      class="tabp">
-      <tr style="height:10px;"></tr>
-      <s:iterator  value="busSalaryBaseList"  id="salaryBase" status="st">  
-        <s:set var="cnt" value="6" />   
+  
+  <s:iterator  value="busSalaryBaseList"  id="salaryBase" status="stp">  
+     <table width="90%" border="1" align="center" cellpadding="2" cellspacing="0" bordercolor="#000000"
+        class="tabp" style="margin-top:10px;">
         <tr>                  
        	<td>姓名</td>       	
        	<td><s:property value="#salaryBase.user_name" /></td>       	
@@ -79,16 +78,19 @@
         <td>发放日期</td>        
         <td><s:date name="#salaryBase.salary_schedule" format="yyyy年MM月"/></td>       
         <s:iterator  value="#salaryBase.busSalaryExtendList"  id="busSalaryExtend" status="st">
-         	<td><s:property value="#busSalaryExtend.extend_name" /><s:property value="(#st.index+1)*2+6" /></td>         
+         	<td><s:property value="#busSalaryExtend.extend_name" /></td>         
         	<td><s:property value="#busSalaryExtend.extend_value" /></td>        	
         	<s:if test="((#st.index+1)*2+6)%14 == 0">
         		</tr><tr>
         	</s:if>
         </s:iterator>
         </tr>
-        <tr style="height:10px;"></tr>         
+       </table>   
+       <s:if test="(#stp.index+1)%3 == 0">           			
+  		 <div class="PageNext"></div> 
+       </s:if>
       </s:iterator>   
-  </table>
+ 
 </body>
 
   <script language="javascript">

@@ -155,17 +155,23 @@ var SalaryMan = {
       
        $.messager.confirm('提示','确定要打印选择的记录?',function(r){
     	  if(r){    		  
-		    var form = $('<form></form>');
-	        form.attr('action', base+"/SalaryBase/SalaryBase!printSarary.do");
-	        form.attr('method', 'post');
-	        form.attr('target', '_blank');
-
-	        var kldm_input = $('<input type="text" name="ids" />');
-	        kldm_input.attr('value', ids);
-	        form.append(kldm_input);
-
-
-	        form.submit();
+		    var $form = $("#printForm");
+		    if($form.length == 0){
+		    	
+		    	$form = $('<form id="printForm"></form>');
+			    $form.attr('action', base+"/SalaryBase/SalaryBase!printSarary.do");
+			    $form.attr('method', 'post');
+			    $form.attr('target', '_blank');
+	
+		        var kldm_input = $('<input type="hidden" name="ids" id="ids" />');
+		        kldm_input.attr('value', ids);
+		        $form.append(kldm_input);
+	
+		        $form.appendTo('body');
+		    }else{
+		    	$("#ids").val(ids);
+		    }
+	        $form.submit();
     	  } 
        });       
    }
@@ -179,9 +185,9 @@ $(function () {
 		},
 		frozenColumns:[[    
 		      {field:'bank_account',title:'银行账号'},    
-		      {field:'user_name',title:'姓名'},
+		      {field:'user_name',title:'姓名',width:60},
 		      {field:'user_code',title:'人员编号'},
-		      {field:'salary_schedule',title:'发放时间',formatter:function(value, row, index){
+		      {field:'salary_schedule',title:'发放时间',width:80,formatter:function(value, row, index){
 		    	    if (value.indexOf("-")>0) {
 		    	    	var dateStr = value.split("-")
 		    	        return dateStr[0]+'年' + dateStr[1] + '月';

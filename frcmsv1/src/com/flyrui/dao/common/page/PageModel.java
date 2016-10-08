@@ -17,8 +17,6 @@ public class PageModel <T>{
 	}
 	public void setTotal(int total) {
 		this.total = total;
-		startIndex = (pageIndex-1)*pageSize+1;
-		endIndex = (pageIndex)*pageSize+1;
 		if(endIndex>total){
 			endIndex = total+1;
 		}
@@ -44,18 +42,21 @@ public class PageModel <T>{
 		this.pageSize = pageSize;
 	}
 	public int getPageIndex() {
+		
 		return pageIndex;
 	}
 	public void setPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
 	}
 	public int getStartIndex() {
+		this.startIndex = (pageIndex-1)*pageSize;
 		return startIndex;
 	}
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
 	}
 	public int getEndIndex() {
+		endIndex = (pageIndex)*pageSize;		
 		return endIndex;
 	}
 	public void setEndIndex(int endIndex) {
