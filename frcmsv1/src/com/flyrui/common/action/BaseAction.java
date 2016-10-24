@@ -75,13 +75,14 @@ public class BaseAction extends ActionSupport{
 	 * rover.lee
 	 * Aug 3, 2012
 	 */
-	public TbRole getUserRole(User user){		
-		TbRole retTbRole = null;
+	public List<TbRole> getUserRole(User user){		
+		List<TbRole> retTbRole = null;
 		if(user !=null ){
 			List<TbRole> roleList = user.getRoleList();
-			if(roleList.size()>0){
-				retTbRole = roleList.get(0);
-			}
+			//if(roleList.size()>0){
+			//	retTbRole = roleList.get(0);
+			//}
+			retTbRole = roleList;
 		}
 		return retTbRole;		
 	}

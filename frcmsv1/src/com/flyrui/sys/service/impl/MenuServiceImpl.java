@@ -14,6 +14,7 @@ import com.flyrui.common.service.BaseService;
 import com.flyrui.dao.common.SQLMapConstant;
 import com.flyrui.dao.common.page.PageModel;
 import com.flyrui.dao.pojo.sys.TbMenu;
+import com.flyrui.dao.pojo.sys.TbRole;
 import com.flyrui.dao.pojo.sys.TbRoleMenu;
 import com.flyrui.exception.ErrorConstants;
 import com.flyrui.exception.FRException;
@@ -34,7 +35,28 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
     public List<TbMenu> getRootMenuListByRole(String roleId){
         List<TbMenu> listMenu=  baseDao.selectList(SQLMapConstant.GET_ROOT_MENULIST_BY_ROLE, roleId);             
         return listMenu;
-    }   
+    }
+    
+    /**
+	 * 根据角色查询角色拥有的菜单信息
+	 * @param roleId
+	 * @return
+	 */
+    public List<TbMenu> getSubMenuListByUpIdAndRole(Map map){
+        List<TbMenu> listMenu=  baseDao.selectList(SQLMapConstant.getSubMenuListByUpIdAndRole, map);             
+        return listMenu;
+    }
+    
+    
+    /**
+	 * 根据角色查询角色拥有的菜单信息
+	 * @param roleId
+	 * @return
+	 */
+    public List<TbMenu> getRootMenuListByRoles(List<TbRole> tbRoleList){
+        List<TbMenu> listMenu=  baseDao.selectList(SQLMapConstant.GET_ROOT_MENULIST_BY_ROLES, tbRoleList);             
+        return listMenu;
+    } 
  
 
     /**
@@ -58,7 +80,7 @@ public class MenuServiceImpl extends BaseService<TbMenu> implements MenuService 
         	for(TbMenu menu : listMenu ){
         		Map<String,String> p = new HashMap<String,String>();
         		p.put("menu_id", String.valueOf(menu.getMenu_id()));
-        		p.put("role_id", param.get("role_id"));
+        		p.put("user_id", param.get("user_id"));
         		menu.setSub_menu_list(getSubMenuListByUpId(p));
         	}        	
         }

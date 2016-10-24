@@ -209,7 +209,8 @@ public class ImportSalaryBaseExcel<T> {
 				}
 			}
 		} catch (Exception e) {
-			this.errMessage+=e.getMessage().toString()+"<br/>";
+			this.errMessage+=e.getMessage()+"<br/>";
+			e.printStackTrace();
 			return dist;
 		}
 		return dist;

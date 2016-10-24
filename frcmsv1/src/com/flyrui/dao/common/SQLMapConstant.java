@@ -17,4 +17,8 @@ public class SQLMapConstant
     public final static String UPDATE_USER_LOGIN_INFO="updateUserLoginInfo";
     
     public final static String GET_SUBMENU_LIST_BY_UPID="getSubMenuListByUpId";
+    
+    public final static String GET_ROOT_MENULIST_BY_ROLES="getRootMenuListByRoles";
+    
+    public final static String getSubMenuListByUpIdAndRole="getSubMenuListByUpIdAndRole"; 
 }

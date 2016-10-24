@@ -223,6 +223,8 @@ public class UserAction extends BaseAction {
     public String saveUserRole() throws FRException{
     	UserService userService = getUserService();
     	if( ids != null && ids.length()>0){
+    		//把老的角色全部删除
+    		userService.deleteRolesByUser(user.getUser_id());
     		String[] idArray = ids.split(",");
     		for(String id : idArray){
     			userService.saveUserRole(user.getUser_id(),id);

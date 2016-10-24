@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <link rel="stylesheet" type="text/css" href="<%=baseUri %>/public/common/ress/css/common.css">
-<link rel="stylesheet" type="text/css" href="<%=baseUri %>/public/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=baseUri %>/public/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=baseUri %>/public/common/ress/css/jq/jquery.loadmask.css">
 <link rel="stylesheet" type="text/css" href="<%=baseUri %>/public/easyui/themes/icon.css">
 <!--  <script type="text/javascript" src="/ress/js/jquery/jquery-1.8.0.min.js"></script>-->

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.flyrui.common.bean.MenuOptBean;
 import com.flyrui.dao.common.page.PageModel;
 import com.flyrui.dao.pojo.sys.TbMenu;
+import com.flyrui.dao.pojo.sys.TbRole;
 
 public interface MenuService {
 	/**
@@ -79,4 +80,8 @@ public interface MenuService {
 	   public List<TbMenu> getNoSelectSubMenuListByUpId(Map map);
 	   
 	   public void saveRoleMenu(Map<String,String> m);
+	   
+	   public List<TbMenu> getRootMenuListByRoles(List<TbRole> tbRoleList);
+	   
+	   public List<TbMenu> getSubMenuListByUpIdAndRole(Map map);
 }

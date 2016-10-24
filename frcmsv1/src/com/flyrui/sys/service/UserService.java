@@ -24,6 +24,8 @@ public interface UserService {
 	
 	public int modifyPwd(Map<String,String> param);	
 	
-	public int batchInsert(List<User> user);	
+	public int batchInsert(List<User> user);
+	
+	public int deleteRolesByUser(String user_id);
 	
 }

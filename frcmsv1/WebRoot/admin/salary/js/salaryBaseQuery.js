@@ -62,8 +62,7 @@ $(function () {
         loadFilter:function(data){			
 			return CommonUtils.loadFilter(data);
 		},
-		frozenColumns:[[    
-		      {field:'bank_account',title:'银行账号'},    
+		frozenColumns:[[ 
 		      {field:'user_name',title:'姓名'},
 		      {field:'user_code',title:'人员编号'},
 		      {field:'salary_schedule',title:'发放时间',formatter:function(value, row, index){
@@ -77,7 +76,7 @@ $(function () {
 		    	}}
 		]],
 		columns:[[    
-		          {field:'extend_info',title:'工资详情',width:2400,align:'left'}
+		          {field:'extend_info',title:'',width:2400,align:'left'}
 		      ]] ,
         toolbar: [            
             {

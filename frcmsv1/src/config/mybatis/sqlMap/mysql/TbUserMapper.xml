@@ -126,6 +126,10 @@
     where user_id = #{user_id,jdbcType=VARCHAR}
     	 and role_id = #{role_id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteRolesByUser" parameterType="hashMap" >
+    delete from tb_user_role 
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </delete>
   <update id="modifyPwd" parameterType="hashMap" >
     update tb_user set password = #{newPwd,jdbcType=VARCHAR}
     where user_id = #{user_id,jdbcType=VARCHAR} and password = #{oldPwd,jdbcType=VARCHAR}

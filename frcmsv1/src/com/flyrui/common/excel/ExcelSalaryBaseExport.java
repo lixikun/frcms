@@ -61,33 +61,37 @@ public class ExcelSalaryBaseExport {
 			style.setTopBorderColor(HSSFColor.BLACK.index);
 
 			int index = 0;
-			HSSFRow row=null;
-					
+			HSSFRow row=null;//标题头
+			HSSFRow row2=null;//标题内容	
+			HSSFRow row3=null;//空行
 			Iterator<BusSalaryBase> its2 = dataset.iterator();
 			while (its2.hasNext()) {
 				// 从第二行开始写，第一行是标题
 				
 				row = sheet.createRow(index);
+				row2 = sheet.createRow(++index);
+				row3 = sheet.createRow(++index);
 				int curColumn = 0;
+				int curColumn2 = 0;
 				BusSalaryBase t = (BusSalaryBase) its2.next();
 				HSSFCell cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
-				cell.setCellValue("银行账号");
+				/*cell.setCellValue("银行账号");
 				cell.setCellStyle(style);
 				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
 				cell.setCellValue(t.getBank_account());
-				cell.setCellStyle(style);
+				cell.setCellStyle(style);				
+				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);*/
 				
-				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
 				cell.setCellValue("姓名");
 				cell.setCellStyle(style);
-				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
+				cell = row2.createCell(curColumn2++,HSSFCell.CELL_TYPE_STRING);
 				cell.setCellValue(t.getUser_name());
 				cell.setCellStyle(style);
 				
 				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
 				cell.setCellValue("发放时间");
 				cell.setCellStyle(style);
-				cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_STRING);
+				cell = row2.createCell(curColumn2++,HSSFCell.CELL_TYPE_STRING);
 				cell.setCellValue(sdf.format(t.getSalary_schedule()));
 				cell.setCellStyle(style);
 				List<BusSalaryExtend> busSalaryExtendList = t.getBusSalaryExtendList();
@@ -100,7 +104,7 @@ public class ExcelSalaryBaseExport {
 						cell.setCellValue(b.getExtend_name());
 						cell.setCellStyle(style);
 						
-						cell = row.createCell(curColumn++,HSSFCell.CELL_TYPE_NUMERIC);
+						cell = row2.createCell(curColumn2++,HSSFCell.CELL_TYPE_NUMERIC);
 						try{
 							cell.setCellValue(Double.parseDouble(b.getExtend_value()));
 						}catch(Exception ex){

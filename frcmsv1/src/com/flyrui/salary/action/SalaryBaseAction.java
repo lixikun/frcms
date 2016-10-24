@@ -199,6 +199,8 @@ public class SalaryBaseAction extends BaseAction {
 					importErrMsg.append("入库失败:"+ex.getMessage());
 					importErrNum += resultList.size();
 				}
+    		}else{
+    			importErrNum = resultList.size();
     		}
 			
     		retMap.put("batchId", batchId);
@@ -331,6 +333,42 @@ public class SalaryBaseAction extends BaseAction {
     	otherParams.put("curDate", sdf.format(new Date()));
     	setResult(otherParams);
         return "print";    	   	
+    }
+    
+    public String pringSalaryByQuery(){
+    	actionType = "BANK";
+    	BusSalaryBaseService iBusSalaryBaseService = getBusSalaryBaseService();    
+    	BusSalaryExtendService busSalaryExtendService = getBusSalaryExtendService();
+    	if(q==null){
+    		busSalary.setBank_account(getUserCode());
+    	}
+    	PageModel<BusSalaryBase> pageModel = iBusSalaryBaseService.getPagerListByCon(busSalary, page, rows);  
+    	List<BusSalaryBase> busSalaryList = pageModel.getRows();
+    	if(busSalaryList!=null && busSalaryList.size()>0){
+    		List<BusSalaryExtend> busSalaryExtendList = busSalaryExtendService.getListByBatchSalaryId(pageModel.getRows());
+        	if(busSalaryExtendList!=null && busSalaryExtendList.size() >0){
+        		for(BusSalaryExtend busSalaryExtendTemp : busSalaryExtendList){
+        			for(BusSalaryBase busSalaryBaseTemp : busSalaryList){
+            			if(busSalaryExtendTemp.getSalary_id().equals(busSalaryBaseTemp.getSalary_id())){
+            				List<BusSalaryExtend> tt = busSalaryBaseTemp.getBusSalaryExtendList();
+            				if(tt==null){
+            					tt = new ArrayList<BusSalaryExtend>();
+            					busSalaryBaseTemp.setBusSalaryExtendList(tt);
+            				}
+            				tt.add(busSalaryExtendTemp);
+            				break;
+            			}
+            		}
+        		}
+        	}        	
+    	}
+    	busSalaryBaseList.addAll(busSalaryList);
+    	
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
+    	Map<String,String> otherParams = new HashMap<String,String>();
+    	otherParams.put("curDate", sdf.format(new Date()));
+    	setResult(otherParams);
+        return "print";
     }
     
 }

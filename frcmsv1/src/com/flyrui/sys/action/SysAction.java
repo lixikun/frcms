@@ -34,10 +34,10 @@ public class SysAction extends BaseAction {
     public String getRootMenuByRole() throws FRException{
     	User user = getLoginUserInfo();
     	if(user != null){
-    		TbRole role = getUserRole(user);
+    		List<TbRole> role = getUserRole(user);
     		if(role!=null){
     			MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    			menuList = menuService.getRootMenuListByRole(CommonUtils.getStrValueFromObject(role.getRole_id()));   
+    			menuList = menuService.getRootMenuListByRoles(role);   
     			setResult(menuList);
     		}else{
     			FRException frException = new FRException(new FRError(ErrorConstants.SYS_ROLE_NOT_FOUND));
@@ -67,16 +67,16 @@ public class SysAction extends BaseAction {
     	String resultName= "main";
     	User user = getLoginUserInfo();
     	if(user != null){
-    		TbRole role = getUserRole(user);
+    		List<TbRole> role = getUserRole(user);
     		if(role!=null){
     			MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    			menuList = menuService.getRootMenuListByRole(CommonUtils.getStrValueFromObject(role.getRole_id()));  
+    			menuList = menuService.getRootMenuListByRoles(role);  
     			if(menuList!=null && menuList.size()>0){
     				//查找子菜单
     				for( int i=0;i<menuList.size();i++){
     					TbMenu menu = (TbMenu)menuList.get(i);
     					Map<String,String> param = new HashMap<String,String>();
-    					param.put("role_id", role.getRole_id()+"");
+    					param.put("user_id", user.getUser_id());
     					param.put("menu_id", menu.getMenu_id()+"");    					
     				    List retList = menuService.getSubMenuListByUpId(param);
     				    menu.setSub_menu_list(retList);

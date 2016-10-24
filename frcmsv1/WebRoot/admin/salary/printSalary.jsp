@@ -54,7 +54,7 @@
   <input type="button" value="页面设置" onclick="document.all.WebBrowser.ExecWB(8,1)" class="NOPRINT" id="ieprint2" style="display:none">
   <input type="button" value="打印预览" onclick="document.all.WebBrowser.ExecWB(7,1)" class="NOPRINT" id="ieprint3" style="display:none">
   <br />
-  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr align="center">
           <td colspan="5">
               <font size="3">黄河水利科学研究院工资单</font>
@@ -68,27 +68,24 @@
   </table>
   
   <s:iterator  value="busSalaryBaseList"  id="salaryBase" status="stp">  
-     <table width="90%" border="1" align="center" cellpadding="2" cellspacing="0" bordercolor="#000000"
+     <table  border="1" align="center" cellpadding="2" cellspacing="0" bordercolor="#000000"
         class="tabp" style="margin-top:10px;">
         <tr>                  
-       	<td>姓名</td>       	
-       	<td><s:property value="#salaryBase.user_name" /></td>       	
-        <td>帐号</td>        
-        <td><s:property value="#salaryBase.bank_account" /></td>
-        <td>发放日期</td>        
-        <td><s:date name="#salaryBase.salary_schedule" format="yyyy年MM月"/></td>       
+       	<td width="200px">姓名</td> 
+        <td width="200px">发放日期</td>  
         <s:iterator  value="#salaryBase.busSalaryExtendList"  id="busSalaryExtend" status="st">
-         	<td><s:property value="#busSalaryExtend.extend_name" /></td>         
-        	<td><s:property value="#busSalaryExtend.extend_value" /></td>        	
-        	<s:if test="((#st.index+1)*2+6)%14 == 0">
-        		</tr><tr>
-        	</s:if>
+         	<td width="200px"><s:property value="#busSalaryExtend.extend_name" /></td> 
         </s:iterator>
         </tr>
-       </table>   
-       <s:if test="(#stp.index+1)%3 == 0">           			
-  		 <div class="PageNext"></div> 
-       </s:if>
+        <tr>
+        	<td width="200px"><s:property value="#salaryBase.user_name" /></td>
+        	<td width="200px"><s:date name="#salaryBase.salary_schedule" format="yyyy年MM月"/></td>   
+        	<s:iterator  value="#salaryBase.busSalaryExtendList"  id="busSalaryExtend" status="st">         	        
+        		<td width="200px"><s:property value="#busSalaryExtend.extend_value" /></td>
+        	</s:iterator>
+        </tr>
+       </table>  
+       
       </s:iterator>   
  
 </body>
@@ -107,14 +104,17 @@
      function getBrowserInfo(){
 	       var Sys = {};
 	       var ua = navigator.userAgent.toLowerCase();
-	       var re =/(msie|firefox|chrome|opera|version).*?([\d.]+)/;
-	       var m = ua.match(re);
-	       Sys.browser = m[1].replace(/version/, "'safari");
-	       Sys.ver = m[2];
+	       var s;
+	       (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+	           (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+	           (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+	           (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+	           (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+	           (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 	       return Sys;
 	 }
 	 function doPront(){
-		 if("msie"==sys.browser){
+		 if(sys.ie){
 			 pagesetup_null();
 			 document.all.WebBrowser.ExecWB(6,1);
 	     }else{
@@ -124,7 +124,7 @@
      var sys = getBrowserInfo();
      //document.write(sys.browser + "的版本是：" + sys.ver);
      //alert(sys.browser);
-     if("msie"==sys.browser){
+     if(sys.ie){
          //alert(1);
 		document.getElementById("ieprint1").style.display="";
 		document.getElementById("ieprint2").style.display="";

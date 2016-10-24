@@ -64,10 +64,10 @@ public class LoginAction extends BaseAction {
 	}
     
     public String getRootMenuByUserRole() throws FRException{
-    	TbRole role = getLoginUserRole();    		
-		if(role!=null){
+    	List<TbRole> roles = getLoginUserRole();    		
+		if(roles!=null){
 			MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-			menuList = menuService.getRootMenuListByRole(CommonUtils.getStrValueFromObject(role.getRole_id()));    		
+			menuList = menuService.getRootMenuListByRoles(roles);    		
 		}else{
 			FRException frException = new FRException(new FRError(ErrorConstants.SYS_ROLE_NOT_FOUND));
 			log.debug(frException);
@@ -81,7 +81,7 @@ public class LoginAction extends BaseAction {
 		Map propertiesMap = new HashMap();
     	propertiesMap.put("menu_id", "id");
 	    propertiesMap.put("menu_name", "text");
-
+	    User user = getLoginUserInfo(); 
 	    List l = new ArrayList();
 	    List<TbMenu> retList = menuService.getRootMenuListByRole(roleId);		    
 	    Map<String,String> map = new HashMap<String,String>();
@@ -90,9 +90,9 @@ public class LoginAction extends BaseAction {
 		   	Map tM = new HashMap();
 		   	tM.put("id",m.getMenu_id());
 		   	tM.put("text", m.getMenu_name());
-		   	map.put("role_id", roleId);
+		   	map.put("role_id", roleId+"");
 		   	map.put("menu_id", m.getMenu_id()+"");
-		   	List<TbMenu> retList2 = menuService.getSubMenuListByUpId(map);
+		   	List<TbMenu> retList2 = menuService.getSubMenuListByUpIdAndRole(map);
 		   	
 		   	List l2 = new ArrayList();
 		   	for(TbMenu m2 : retList2){
@@ -101,7 +101,7 @@ public class LoginAction extends BaseAction {
 			   	tM2.put("text", m2.getMenu_name());				   	
 			   
 			   	map.put("menu_id", m2.getMenu_id()+"");
-				List<TbMenu> retList3 = menuService.getSubMenuListByUpId(map);
+				List<TbMenu> retList3 = menuService.getSubMenuListByUpIdAndRole(map);
 				List l3 = new ArrayList();
 				for(TbMenu m3 : retList3){
 			   		Map tM3 = new HashMap();
@@ -164,10 +164,10 @@ public class LoginAction extends BaseAction {
      */
     public String getSubMenuListByUpId() throws FRException{
     	MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    	TbRole role = getLoginUserRole();    		
+    	User user = getLoginUserInfo();    		
 		
 		Map<String,String> param = new HashMap<String,String>();
-		param.put("role_id", role.getRole_id()+"");
+		param.put("user_id", user.getUser_id());
 		param.put("menu_id", menuId);
 		setResult(menuService.getSubMenuListByUpId(param));  		
 		 	
@@ -225,8 +225,7 @@ public class LoginAction extends BaseAction {
      * Jul 6, 2012
      */
     public String getSubMenuTreeByUpId() throws FRException{
-    	MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    	TbRole role = getLoginUserRole(); 
+    	MenuService menuService = (MenuService)SpringBeans.getBean("menuService");    	 
     	List retList = new ArrayList();
 		retList= menuService.getSubMenuNoRoleListByUpId(menuId);
     	
@@ -259,9 +258,9 @@ public class LoginAction extends BaseAction {
      */
     public String getSubTwoLevelMenuList() throws FRException{
     	MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    	TbRole role = getLoginUserRole();
+    	User user = getLoginUserInfo();
 		Map<String,String> param = new HashMap<String,String>();
-		param.put("role_id", role.getRole_id()+"");
+		param.put("user_id", user.getUser_id());
 		param.put("menu_id", menuId);
 		setResult(menuService.getSubTwoLevelMenuList(param));     	
     	return SUCCESS;
@@ -291,9 +290,9 @@ public class LoginAction extends BaseAction {
     
     public String getSubMenuJsontByUpId() throws FRException{
     	MenuService menuService = (MenuService)SpringBeans.getBean("menuService");
-    	TbRole role = getLoginUserRole(); 
+    	User user = getLoginUserInfo();
 		Map<String,String> param = new HashMap<String,String>();
-		param.put("role_id", role.getRole_id()+"");
+		param.put("user_id", user.getUser_id());
 		param.put("menu_id", menuId);
     	setResult(menuService.getSubMenuJsontByUpId(param));
     	return SUCCESS;
@@ -305,8 +304,8 @@ public class LoginAction extends BaseAction {
     	return SUCCESS;
     }
     
-    public TbRole getLoginUserRole() throws FRException{
-    	TbRole role = null;
+    public List <TbRole> getLoginUserRole() throws FRException{
+    	List<TbRole> role = null;
     	User user = getLoginUserInfo();
     	if(user != null){
     		role = getUserRole(user);
