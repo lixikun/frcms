@@ -25,7 +25,7 @@
 
     <div region="center" title="公告列表" style="padding:2px;">
         <table id="noticeList"  rownumbers="true" pagination="true"
-               fitColumns="true" nowrap="false" showFooter="true" singleSelect="true" style="height:450px">
+               fitColumns="true" nowrap="false" showFooter="true" singleSelect="true" fit="true">
             <thead>
             <tr>
                 <th field="notice_id" width="40" hidden>公告ID</th>
@@ -48,7 +48,7 @@
     		<td colspan="3"> <input class="easyui-validatebox" type="text" name="title" style="width:340px"/></td>
     	</tr>
     	<tr>
-    		<td>失效时间:</td>
+    		<td>生效时间:</td>
     		<td> <input class="easyui-datebox" type="text" id="eff_date" name="eff_date" required="true"  editable="false" formatter="timeFormatter" parser="timeParser"/></td>    	
     		<td>失效时间:</td>
     		<td><input class="easyui-datebox"  type="text" id="exp_date" name="exp_date" required="true"  editable="false" formatter="timeFormatter" parser="timeParser" /></td>

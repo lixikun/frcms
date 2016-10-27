@@ -24,7 +24,7 @@
 
     <div region="center" title="员工工资列表" style="padding:2px;">
         <table id="salaryList"  rownumbers="true" pagination="true"
-               fitColumns="false" nowrap="false" showFooter="true" singleSelect="true" style="height:430px" autoRowHeight="false">
+               fitColumns="false" nowrap="false" showFooter="true" singleSelect="true" style="height:430px" autoRowHeight="false" fit="true">
             <thead>
             <tr>
             	<th checkbox="true"></th>            	

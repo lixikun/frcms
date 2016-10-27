@@ -10,6 +10,7 @@ var noticeIndex = {
         CommonUtils.invokeAsyncAction(base+'/Sys/Notice!queryEffNoticeList.do', param, function (reply) {
 			if((reply || '') !=''){
 				var code = reply._code;
+				console.log(reply);
                 if(code=='0'){
                 	 var result = reply.ret;               	 
                 	 me.setValues(result); 
@@ -24,7 +25,7 @@ var noticeIndex = {
     		for(var i=0;i<obj.length;i++){
     			var oo = obj[i];
     			//alert(oo.create_date);
-    			HTML+="<li ><div class='title'><a herf='javascript:void(0);' onclick=\"noticeIndex.openDetail("+oo.notice_id+")\">"+oo.title+"</a></div> <div class='time'>"+CommonUtils.transformDate(oo.create_date,'1')+"</div></li>";
+    			HTML+="<li ><div class='title'><a herf='javascript:void(0);' onclick=\"noticeIndex.openDetail("+oo.notice_id+")\">"+oo.title+"</a></div> <div class='time'>"+CommonUtils.transformDate(oo.eff_date,'1')+"</div></li>";
     		}
     		HTML+="</ul>";
     		content.append(HTML);
@@ -42,7 +43,7 @@ var noticeIndex = {
                 	 var result = reply.ret;   
                 	 if(result!=null){
 	                	 $("#detailTitle").html(result.title);
-	                	 $("#detailTime").html(CommonUtils.transformDate(result.create_date));
+	                	 $("#detailTime").html(CommonUtils.transformDate(result.eff_date));
 	                	 $("#detailContent").html(result.content);
 	                	 $('#noticeDetail').attr('title', '公告详情');
 	                     $('#noticeDetail').show();

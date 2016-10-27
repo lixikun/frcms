@@ -1,11 +1,19 @@
 var importFlag = false;
 var SalaryMan = {    
-    search: function () {      
-        var salary_schedule_start = $('input[name="s_salary_schedule_start"]').val();
-        var salary_schedule_end = $('input[name="s_salary_schedule_end"]').val();
+    search: function () {   
+		var params = SalaryMan.getQueryParam();
+		$('#salaryList').datagrid({
+        	queryParams:params 
+        })
+		
         $('#salaryList').datagrid({
         	queryParams: {'busSalary.salary_schedule_start':salary_schedule_start,'busSalary.salary_schedule_end':salary_schedule_end}
         })
+    }, 
+    getQueryParam:function(){
+    	var salary_schedule_start = $('input[name="s_salary_schedule_start"]').val();
+        var salary_schedule_end = $('input[name="s_salary_schedule_end"]').val();
+        return {'busSalary.salary_schedule_start':salary_schedule_start,'busSalary.salary_schedule_end':salary_schedule_end};
     }, 
     refresh: function () {
         $('#salaryList').datagrid('reload');
@@ -40,17 +48,53 @@ var SalaryMan = {
       
        $.messager.confirm('提示','确定要打印选择的记录?',function(r){
     	  if(r){    		  
-		    var form = $('<form></form>');
-	        form.attr('action', base+"/SalaryBase/SalaryBase!printSarary.do");
-	        form.attr('method', 'post');
-	        form.attr('target', '_blank');
-
-	        var kldm_input = $('<input type="text" name="ids" />');
-	        kldm_input.attr('value', ids);
-	        form.append(kldm_input);
-
-
-	        form.submit();
+    		  var $form = $("#printForm");
+  		    if($form.length == 0){
+  		    	
+  		    	$form = $('<form id="printForm"></form>');
+  			    $form.attr('action', base+"/SalaryBase/SalaryBase!printSarary.do");
+  			    $form.attr('method', 'post');
+  			    $form.attr('target', '_blank');
+  	
+  		        var kldm_input = $('<input type="hidden" name="ids" id="ids" />');
+  		        kldm_input.attr('value', ids);
+  		        $form.append(kldm_input);
+  	
+  		        $form.appendTo('body');
+  		    }else{
+  		    	$("#ids").val(ids);
+  		    }
+  	        $form.submit();
+    	  } 
+       });       
+   },
+   printSalaryQuery:function(){
+	   
+	   var params = SalaryMan.getQueryParam();
+	   params.rows = 1000;
+	   params.page = 1;
+       $.messager.confirm('提示','确定要打印查询的全部记录?',function(r){
+    	  if(r){    		  
+		    var $form = $("#printAllForm");
+		    if($form.length == 0){
+		    	
+		    	$form = $('<form id="printForm"></form>');
+			    $form.attr('action', base+"/SalaryBase/SalaryBase!pringSalaryByQuery.do");
+			    $form.attr('method', 'post');
+			    $form.attr('target', '_blank');
+			    //{'busSalary.batch_id':batch_id,'busSalary.salary_schedule_start':salary_schedule_start,'busSalary.salary_schedule_end':salary_schedule_end,'busSalary.user_code': user_code, 'busSalary.user_name': user_name,'busSalary.org_name':org_name,'q':1};
+			    for(var key in params){
+			    	console.log(key);
+			    	var value_input = $('<input type="hidden" name="'+key+'" id="'+key+'" />');
+			    	value_input.attr('value', params[key]);
+			        $form.append(value_input);
+			    }		        
+	
+		        $form.appendTo('body');
+		    }else{
+		    	$("#ids").val(ids);
+		    }
+	        $form.submit();
     	  } 
        });       
    }
@@ -115,6 +159,13 @@ $(function () {
                 iconCls: 'icon-print',
                 handler: function () {                    
             		SalaryMan.printSalary();                    
+                }
+            },'-',
+            {
+                text: '打印查询记录',
+                iconCls: 'icon-print',
+                handler: function () {                    
+            		SalaryMan.printSalaryQuery();                    
                 }
             }           
         ]
